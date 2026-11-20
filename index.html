@@ -3,31 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>2026 關西紅葉親子手賬｜京都・大阪 7 日精準行程</title>
+  <title>2026 關西紅葉親子手賬｜京都・大阪 7 日精準版 (v4)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --washi-bg: #FAF5EE;
+      --washi-bg: #FAF6F0;
       --card-bg: #FFFDF9;
-      --maple-crimson: #B83A2D;
+      --maple-crimson: #B83B2A;
       --maple-orange: #D96B27;
-      --maple-amber: #E8A838;
-      --maple-bark: #4A2C2A;
-      --moss-green: #3E6B4C;
-      --ink-muted: #75625A;
-      --border-washi: #E6D8C8;
+      --ginkgo-gold: #E2A03F;
+      --ink-brown: #4A3525;
+      --moss-green: #3D6B4C;
+      --ink-muted: #786355;
+      --border-washi: #E6D8C6;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Noto Sans TC', sans-serif;
       background-color: var(--washi-bg);
-      color: var(--maple-bark);
+      color: var(--ink-brown);
       background-image:
-        radial-gradient(#DFCBB5 0.85px, transparent 0.85px),
-        radial-gradient(#DFCBB5 0.85px, var(--washi-bg) 0.85px);
+        radial-gradient(#E0CEB9 0.9px, transparent 0.9px),
+        radial-gradient(#E0CEB9 0.9px, var(--washi-bg) 0.9px);
       background-size: 28px 28px;
       background-position: 0 0, 14px 14px;
       -webkit-tap-highlight-color: transparent;
@@ -38,7 +42,7 @@
       font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
     }
 
-    /* 手賬紙膠帶效果 */
+    /* 手賬和紙膠帶裝飾 */
     .washi-tape {
       position: relative;
     }
@@ -48,20 +52,20 @@
       top: -9px;
       left: 50%;
       transform: translateX(-50%) rotate(-1.5deg);
-      width: 90px;
+      width: 92px;
       height: 18px;
-      background: rgba(184, 58, 45, 0.24);
-      border-left: 2px dashed rgba(255, 255, 255, 0.7);
-      border-right: 2px dashed rgba(255, 255, 255, 0.7);
-      box-shadow: 0 1px 2px rgba(74, 44, 42, 0.08);
+      background: rgba(184, 59, 42, 0.24);
+      border-left: 2px dashed rgba(255, 255, 255, 0.75);
+      border-right: 2px dashed rgba(255, 255, 255, 0.75);
+      box-shadow: 0 1px 2px rgba(74, 53, 37, 0.08);
       z-index: 10;
     }
-    .washi-tape-amber::before {
-      background: rgba(232, 168, 56, 0.34);
+    .washi-tape-gold::before {
+      background: rgba(226, 160, 63, 0.35);
       transform: translateX(-50%) rotate(1.6deg);
     }
     .washi-tape-green::before {
-      background: rgba(62, 107, 76, 0.26);
+      background: rgba(61, 107, 76, 0.26);
       transform: translateX(-50%) rotate(-1deg);
     }
 
@@ -70,20 +74,20 @@
       background-color: var(--card-bg);
       border: 1.5px solid var(--border-washi);
       border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(74, 44, 42, 0.06);
+      box-shadow: 0 4px 16px rgba(74, 53, 37, 0.06);
     }
 
     /* 時間軸虛線 */
     .timeline-connector {
       position: absolute;
       left: 17px;
-      top: 34px;
+      top: 36px;
       bottom: -18px;
       width: 2px;
       background: repeating-linear-gradient(
         to bottom,
-        #D4BFA8 0px,
-        #D4BFA8 5px,
+        #D5C0A9 0px,
+        #D5C0A9 5px,
         transparent 5px,
         transparent 10px
       );
@@ -93,53 +97,53 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .modal-overlay {
-      background: rgba(74, 44, 42, 0.55);
-      backdrop-filter: blur(3px);
+      background: rgba(74, 53, 37, 0.65);
+      backdrop-filter: blur(4px);
     }
 
-    @keyframes leafSway {
+    @keyframes leafFloat {
       0%, 100% { transform: rotate(-3deg) translateY(0); }
       50% { transform: rotate(4deg) translateY(-3px); }
     }
     .leaf-animate {
       display: inline-block;
-      animation: leafSway 3.5s ease-in-out infinite;
+      animation: leafFloat 3.5s ease-in-out infinite;
     }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- 手機版置中容器 -->
+  <!-- 手機 App 置中容器 -->
   <div class="max-w-[480px] mx-auto min-h-screen relative">
 
-    <!-- 頂部固定導覽列 -->
-    <header class="sticky top-0 z-40 bg-[#FAF5EE]/95 backdrop-blur-md border-b border-[#E6D8C8] px-3.5 py-2.5 shadow-sm">
+    <!-- 頂部固定手賬標題與日期導覽列 -->
+    <header class="sticky top-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#E6D8C6] px-3.5 py-2.5 shadow-sm">
       <div class="flex items-center justify-between gap-2">
         <div class="flex items-center gap-2">
-          <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#B83A2D] to-[#D96B27] flex items-center justify-center text-white text-lg shadow-sm leaf-animate">
+          <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#B83B2A] to-[#D96B27] flex items-center justify-center text-white text-lg shadow-sm leaf-animate">
             🍁
           </div>
           <div>
-            <h1 class="font-maru font-black text-sm text-[#4A2C2A] leading-tight">2026 關西紅葉親子手賬</h1>
-            <p class="text-[10px] text-[#75625A] font-medium">11/20–11/26 · 京都東寺 ＆ 大阪心齋橋</p>
+            <h1 class="font-maru font-black text-sm text-[#4A3525] leading-tight">2026 關西紅葉親子手賬</h1>
+            <p class="text-[10px] text-[#786355] font-medium">11/20–11/26 · 京都東寺 ＆ 大阪心齋橋</p>
           </div>
         </div>
 
         <div class="flex items-center gap-1.5">
           <!-- localStorage 儲存狀態指示 -->
-          <span id="saveIndicator" class="text-[10px] font-bold px-2 py-1 rounded-full bg-[#E8F3EC] text-[#3E6B4C] border border-[#C3DFCC] flex items-center gap-1">
-            <span>💾</span><span id="saveIndicatorText">已儲存</span>
+          <span id="saveIndicator" class="text-[10px] font-bold px-2 py-1 rounded-full bg-[#E8F3EC] text-[#3D6B4C] border border-[#C3DFCC] flex items-center gap-1">
+            <span>💾</span><span id="saveIndicatorText">已自動儲存</span>
           </span>
-          <!-- 預約總覽＆日文小抄按鈕 -->
-          <button onclick="openModal('bookingGuideModal')" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#B83A2D] text-white shadow-sm active:scale-95">
-            📋 預約攻略
+          <!-- 隨身日文溝通大字卡快捷按鈕 -->
+          <button onclick="switchBottomTab('guide')" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#B83B2A] text-white shadow-sm active:scale-95">
+            🇯🇵 指路/退稅
           </button>
         </div>
       </div>
 
       <!-- 7 日日期按鈕列 (11/20 ~ 11/26) -->
       <div id="daySelectorBar" class="flex gap-1.5 overflow-x-auto no-scrollbar pt-2.5 pb-0.5">
-        <!-- JS 動態生成 -->
+        <!-- JS 動態渲染 -->
       </div>
     </header>
 
@@ -148,40 +152,20 @@
 
       <!-- 當日總覽與餐費預算進度卡 -->
       <section id="dayHeaderCard" class="journal-card washi-tape p-4 pt-5">
-        <!-- JS 動態生成 -->
+        <!-- JS 動態渲染 -->
       </section>
 
-      <!-- 主分頁切換 (1.行程表 / 2.交通地圖 / 3.記帳分攤 / 4.匯率換算) -->
-      <div class="grid grid-cols-4 gap-1 bg-[#EFE4D6] p-1 rounded-2xl border border-[#E2D2C0]">
-        <button onclick="switchMainTab('itinerary')" id="nav-itinerary" class="main-tab-btn py-2 rounded-xl text-xs font-bold flex flex-col items-center gap-0.5 bg-white text-[#B83A2D] shadow-sm transition">
-          <span class="text-sm">🗓️</span>
-          <span>行程表</span>
-        </button>
-        <button onclick="switchMainTab('transit')" id="nav-transit" class="main-tab-btn py-2 rounded-xl text-xs font-bold flex flex-col items-center gap-0.5 text-[#75625A] transition">
-          <span class="text-sm">🚃</span>
-          <span>交通地圖</span>
-        </button>
-        <button onclick="switchMainTab('accounting')" id="nav-accounting" class="main-tab-btn py-2 rounded-xl text-xs font-bold flex flex-col items-center gap-0.5 text-[#75625A] transition">
-          <span class="text-sm">💰</span>
-          <span>記帳分攤</span>
-        </button>
-        <button onclick="switchMainTab('currency')" id="nav-currency" class="main-tab-btn py-2 rounded-xl text-xs font-bold flex flex-col items-center gap-0.5 text-[#75625A] transition">
-          <span class="text-sm">💱</span>
-          <span>匯率換算</span>
-        </button>
-      </div>
-
-      <!-- ==================== TAB 1: 行程表 + 每日5大在地美食 ==================== -->
-      <section id="tab-itinerary" class="space-y-4">
+      <!-- ==================== TAB 1: 行程表 + 每日 5 大在地美食 ==================== -->
+      <section id="view-itinerary" class="space-y-4">
         <div class="flex items-center justify-between">
-          <h2 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
+          <h2 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
             <span>🍁</span><span id="timelineSectionTitle">當日精準時間軸</span>
           </h2>
           <div class="flex items-center gap-1.5">
-            <button onclick="openModal('resetConfirmModal')" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#EFE4D6] text-[#75625A] active:scale-95">
-              ↺ 重置預設
+            <button onclick="openModal('resetConfirmModal')" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#EFE4D6] text-[#786355] active:scale-95">
+              ↺ 還原預設
             </button>
-            <button onclick="openItineraryEditor()" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#3E6B4C] text-white shadow-sm active:scale-95">
+            <button onclick="openItineraryEditor()" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#3D6B4C] text-white shadow-sm active:scale-95">
               + 新增行程
             </button>
           </div>
@@ -192,16 +176,16 @@
 
         <!-- 智能在地美食地圖 (每日 5 間精選地道餐廳) -->
         <div class="pt-2 space-y-3">
-          <div class="journal-card washi-tape-amber p-3.5 pt-4 bg-gradient-to-br from-[#FFF9F0] to-[#FFFDF9]">
+          <div class="journal-card washi-tape-gold p-3.5 pt-4 bg-gradient-to-br from-[#FFF9F0] to-[#FFFDF9]">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h3 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
+                <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
                   <span>🍜</span><span>本日在地美食地圖（嚴選 5 間）</span>
                 </h3>
-                <p class="text-[11px] text-[#75625A] mt-0.5">涵蓋百年老店、在地人氣小店與優質燒肉/居酒屋，附預約管道與導航。</p>
+                <p class="text-[11px] text-[#786355] mt-0.5">涵蓋百年老店、在地人氣小店、優質和牛燒肉與居酒屋，附預約管道與導航。</p>
               </div>
-              <button onclick="openModal('jpPhraseModal')" class="shrink-0 text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-[#D96B27] text-white shadow-sm active:scale-95">
-                🇯🇵 訂位日文
+              <button onclick="switchBottomTab('guide')" class="shrink-0 text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-[#D96B27] text-white shadow-sm active:scale-95">
+                🍽️ 點餐大字卡
               </button>
             </div>
           </div>
@@ -210,40 +194,122 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 2: 點對點精細交通地圖 ==================== -->
-      <section id="tab-transit" class="hidden space-y-3.5">
-        <div class="journal-card washi-tape-green p-4 pt-5 space-y-2">
-          <h2 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
-            <span>🧭</span><span id="transitSectionTitle">當日點對點交通轉乘與出口指南</span>
-          </h2>
-          <p class="text-xs text-[#75625A] leading-relaxed">
-            已針對住宿飯店（11/20–23 <b>羅伊西爾京都東寺酒店</b>、11/23–26 <b>DEL style 大阪心齋橋酒店</b>）精算步行時間、月台轉乘與車資。點擊下方卡片可直接開啟 Google Maps 導航。
-          </p>
+      <!-- ==================== TAB 2: 實時天氣 + 鐵道運行情報 + 點對點交通地圖 ==================== -->
+      <section id="view-transit" class="hidden space-y-4">
+        <!-- 實時天氣面板 (Open-Meteo 即時氣象) -->
+        <div class="journal-card washi-tape-gold p-4 pt-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>⛅</span><span>京都・大阪實時天氣與穿衣提醒</span>
+            </h2>
+            <button onclick="fetchLiveWeather(true)" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#FAF6F0] border border-[#E6D8C6] text-[#4A3525] active:scale-95">
+              🔄 刷新氣象
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5" id="weatherCardsGrid">
+            <div class="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E6D8C6] text-xs text-[#786355]">正在載入京都即時氣象...</div>
+            <div class="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E6D8C6] text-xs text-[#786355]">正在載入大阪即時氣象...</div>
+          </div>
+
+          <div class="p-2.5 rounded-xl bg-[#FFF6E6] border border-[#F0D6A8] text-[11px] text-[#6B461E] leading-relaxed">
+            🧣 <b>紅葉季溫差提醒：</b>11月下旬關西白天約 13–16°C 陽光舒適，但傍晚太陽下山後（尤其 15:40 琉璃光院、17:30 永觀堂及清水寺夜楓）氣溫會驟降至 <b>6–8°C</b>，請務必為父母準備防風保暖外套、圍巾與厚羊毛襪。
+          </div>
         </div>
 
-        <div id="transitCardsContainer" class="space-y-3"></div>
+        <!-- 關西鐵道實時運行情報快查區 -->
+        <div class="journal-card washi-tape-green p-4 pt-5 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>🚨</span><span>關西 6 大鐵道官方實時運行情報</span>
+            </h3>
+            <span class="text-[10px] font-bold text-[#3D6B4C] bg-[#E8F3EC] px-2 py-0.5 rounded-md">一鍵查延誤</span>
+          </div>
+          <p class="text-[11px] text-[#786355]">搭車前可隨時點選下方官方連結，確認是否準點運行：</p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <a href="https://trafficinfo.westjr.co.jp/kinki.html" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>🚆 JR西日本 (Haruka/嵐山)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+            <a href="https://www.keihan.co.jp/traffic/traininfo/" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>🚃 京阪電車 (東福寺/出町柳)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+            <a href="https://www.hankyu.co.jp/railinfo/" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>🚋 阪急電鐵 (嵐山/河原町/箕面)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+            <a href="https://eizandensha.co.jp/" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>🍁 叡山電鐵 (八瀨琉璃光院)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+            <a href="https://www.nankai.co.jp/traffic/unkou.html" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>✈️ 南海電鐵 (難波↔關西機場)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+            <a href="https://subway.osakametro.co.jp/guide/subway_information.php" target="_blank" rel="noopener noreferrer"
+              class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] font-bold text-[#4A3525] flex items-center justify-between active:scale-95">
+              <span>🚇 大阪地下鐵 (御堂筋線)</span><span class="text-[#B83B2A]">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 當日點對點精細路線導航 -->
+        <div class="space-y-3">
+          <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5 px-1">
+            <span>🧭</span><span id="transitSectionTitle">當日點對點交通轉乘與出口指南</span>
+          </h3>
+          <div id="transitCardsContainer" class="space-y-3"></div>
+        </div>
       </section>
 
-      <!-- ==================== TAB 3: 旅費記帳與結算分攤 ==================== -->
-      <section id="tab-accounting" class="hidden space-y-4">
-        <!-- 新增記帳卡片 -->
-        <div class="journal-card washi-tape-amber p-4 pt-5 space-y-3">
+      <!-- ==================== TAB 3: ¥546,450 現金錢包 + 旅費記帳 + 雙幣匯率換算 ==================== -->
+      <section id="view-accounting" class="hidden space-y-4">
+
+        <!-- 💴 日圓現金錢包餘額看板 (初始 ¥546,450) -->
+        <div class="journal-card washi-tape p-4 pt-5 bg-gradient-to-br from-[#FFFDF9] to-[#FFF6EA] space-y-2.5">
           <div class="flex items-center justify-between">
-            <h2 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
-              <span>✍️</span><span>新增消費記帳</span>
+            <h2 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>💴</span><span>日圓現金錢包追蹤</span>
             </h2>
-            <span class="text-[11px] font-bold text-[#B83A2D] bg-[#FDECEA] px-2 py-0.5 rounded-lg" id="accountingDayTag">計入 11/20 帳目</span>
+            <button onclick="openModal('cashWalletModal')" class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-[#EFE4D6] text-[#4A3525] active:scale-95">
+              ✏️ 調整初始現金
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 pt-1">
+            <div class="p-3 rounded-2xl bg-white border border-[#E6D8C6]">
+              <div class="text-[10px] font-bold text-[#786355]">初始持有日圓現金</div>
+              <div id="initialJpyDisplay" class="text-base font-black text-[#4A3525] mt-0.5">¥546,450</div>
+              <div id="spentJpyCashDisplay" class="text-[10px] font-bold text-[#B83B2A] mt-0.5">已用現金：¥0</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-[#E8F3EC] border border-[#BCE0C8]">
+              <div class="text-[10px] font-bold text-[#2D613E]">剩餘日圓現金餘額</div>
+              <div id="remainingJpyDisplay" class="text-base font-black text-[#2D613E] mt-0.5">¥546,450</div>
+              <div id="remainingHkdEquivDisplay" class="text-[10px] font-bold text-[#3D6B4C] mt-0.5">約值 HK$28,142</div>
+            </div>
+          </div>
+          <p class="text-[10px] text-[#786355]">💡 記帳時選擇「💴 日圓現金」會自動從上述現金餘額扣減；選擇信用卡或 ICOCA 則不扣減現金池。</p>
+        </div>
+
+        <!-- ✍️ 新增消費記帳卡片 -->
+        <div class="journal-card washi-tape-gold p-4 pt-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>✍️</span><span>新增消費記帳</span>
+            </h3>
+            <span class="text-[11px] font-bold text-[#B83B2A] bg-[#FDECEA] px-2 py-0.5 rounded-lg" id="accountingDayTag">計入 11/20 帳目</span>
           </div>
 
           <div class="grid grid-cols-2 gap-2.5 text-xs">
             <div class="col-span-2">
-              <label class="font-bold text-[#75625A]">項目名稱</label>
-              <input type="text" id="accTitle" placeholder="例如：本家第一旭拉麵 / HARUKA車票 / 藥妝"
-                class="w-full mt-1 px-3 py-2 rounded-xl border border-[#DFCBB5] bg-white focus:outline-none focus:border-[#B83A2D]" />
+              <label class="font-bold text-[#786355]">項目名稱</label>
+              <input type="text" id="accTitle" placeholder="例如：本家第一旭拉麵 / 藥妝 / 天龍寺門票"
+                class="w-full mt-1 px-3 py-2 rounded-xl border border-[#DFCBB5] bg-white focus:outline-none focus:border-[#B83B2A]" />
             </div>
 
             <div>
-              <label class="font-bold text-[#75625A]">消費分類</label>
+              <label class="font-bold text-[#786355]">消費分類</label>
               <select id="accCategory" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white">
                 <option value="food">🍜 餐飲美食 (計入餐補)</option>
                 <option value="transport">🚃 交通車資</option>
@@ -253,17 +319,17 @@
             </div>
 
             <div>
-              <label class="font-bold text-[#75625A]">付款方式</label>
-              <select id="accMethod" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white">
+              <label class="font-bold text-[#786355]">付款方式</label>
+              <select id="accMethod" onchange="onPaymentMethodChange()" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white font-bold">
+                <option value="日圓現金">💴 日圓現金 (扣現金池)</option>
                 <option value="ICOCA 交通卡">🐧 ICOCA 交通卡</option>
-                <option value="日圓現金">💴 日圓現金</option>
                 <option value="信用卡">💳 信用卡</option>
-                <option value="PayPay / AlipayHK">📱 PayPay / AlipayHK</option>
+                <option value="港幣現金 / 電子支付">🇭🇰 港幣現金 / 電子支付</option>
               </select>
             </div>
 
             <div>
-              <label class="font-bold text-[#75625A]">結算幣種</label>
+              <label class="font-bold text-[#786355]">結算幣種</label>
               <select id="accCurrency" onchange="updateAccRatePreview()" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white font-bold">
                 <option value="JPY">JPY (¥ 日圓)</option>
                 <option value="HKD">HKD ($ 港幣)</option>
@@ -271,29 +337,30 @@
             </div>
 
             <div>
-              <label class="font-bold text-[#75625A]">總金額</label>
+              <label class="font-bold text-[#786355]">總金額</label>
               <input type="number" id="accAmount" placeholder="0" oninput="updateAccRatePreview()"
-                class="w-full mt-1 px-3 py-2 rounded-xl border border-[#DFCBB5] bg-white font-black text-[#B83A2D]" />
+                class="w-full mt-1 px-3 py-2 rounded-xl border border-[#DFCBB5] bg-white font-black text-[#B83B2A]" />
             </div>
           </div>
 
           <!-- 雙幣即時匯率展示 -->
-          <div id="accDualRatePreview" class="text-[11px] font-bold text-[#75625A] bg-[#FAF5EE] px-3 py-2 rounded-xl border border-[#E6D8C8]">
+          <div id="accDualRatePreview" class="text-[11px] font-bold text-[#786355] bg-[#FAF6F0] px-3 py-2 rounded-xl border border-[#E6D8C6]">
             雙幣換算：輸入金額後即時顯示 JPY / HKD 等值金額
           </div>
 
-          <!-- 付款人與參與人數/分攤模式 -->
+          <!-- 付款人與分攤方式 -->
           <div class="grid grid-cols-2 gap-2.5 text-xs pt-1 border-t border-[#EFE4D6]">
             <div>
-              <label class="font-bold text-[#75625A]">誰負責付款 (先墊付)</label>
-              <select id="accPayer" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white font-bold text-[#3E6B4C]">
+              <label class="font-bold text-[#786355]">誰負責付款 (先墊付)</label>
+              <select id="accPayer" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white font-bold text-[#3D6B4C]">
+                <option value="共同現金池">💴 共同日圓現金池</option>
                 <option value="我">我</option>
                 <option value="爸爸">爸爸</option>
                 <option value="媽媽">媽媽</option>
               </select>
             </div>
             <div>
-              <label class="font-bold text-[#75625A]">分攤方式</label>
+              <label class="font-bold text-[#786355]">分攤方式</label>
               <select id="accSplitMode" onchange="toggleSplitModeUI()" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white font-bold">
                 <option value="equal">👥 人均平分 (自動整除)</option>
                 <option value="custom">✏️ 分開付 (自訂人名金額)</option>
@@ -302,28 +369,28 @@
           </div>
 
           <!-- 模式 A：人均平分 -->
-          <div id="equalModePanel" class="bg-[#FAF5EE] p-3 rounded-xl border border-[#E6D8C8] space-y-2 text-xs">
+          <div id="equalModePanel" class="bg-[#FAF6F0] p-3 rounded-xl border border-[#E6D8C6] space-y-2 text-xs">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-[#4A2C2A]">參與人數：<span id="equalPaxLabel" class="text-[#B83A2D]">3 人</span></span>
-              <span id="equalPerPersonPreview" class="text-[11px] font-bold text-[#3E6B4C]">每人應付：--</span>
+              <span class="font-bold text-[#4A3525]">參與人數：<span id="equalPaxLabel" class="text-[#B83B2A]">3 人</span></span>
+              <span id="equalPerPersonPreview" class="text-[11px] font-bold text-[#3D6B4C]">每人應付：--</span>
             </div>
             <div class="flex gap-2 flex-wrap">
               <label class="flex items-center gap-1.5 bg-white px-2.5 py-1.5 rounded-lg border border-[#DFCBB5] font-bold">
-                <input type="checkbox" value="我" checked onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83A2D]" /> 我
+                <input type="checkbox" value="我" checked id="accMeCheckbox" onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83B2A]" /> 我
               </label>
               <label class="flex items-center gap-1.5 bg-white px-2.5 py-1.5 rounded-lg border border-[#DFCBB5] font-bold">
-                <input type="checkbox" value="爸爸" checked onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83A2D]" /> 爸爸
+                <input type="checkbox" value="爸爸" checked onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83B2A]" /> 爸爸
               </label>
               <label class="flex items-center gap-1.5 bg-white px-2.5 py-1.5 rounded-lg border border-[#DFCBB5] font-bold">
-                <input type="checkbox" value="媽媽" checked id="accMomCheckbox" onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83A2D]" /> 媽媽
+                <input type="checkbox" value="媽媽" checked onchange="recalcEqualPreview()" class="acc-member-cb accent-[#B83B2A]" /> 媽媽
               </label>
             </div>
           </div>
 
-          <!-- 模式 B：分開付 (自訂人名與應付款項) -->
-          <div id="customModePanel" class="hidden bg-[#FAF5EE] p-3 rounded-xl border border-[#E6D8C8] space-y-2 text-xs">
-            <span class="font-bold text-[#4A2C2A] block">請輸入各人對應的應付款項 (同上方所選幣種)：</span>
-            <div class="space-y-1.5" id="customSplitRows">
+          <!-- 模式 B：分開付 -->
+          <div id="customModePanel" class="hidden bg-[#FAF6F0] p-3 rounded-xl border border-[#E6D8C6] space-y-2 text-xs">
+            <span class="font-bold text-[#4A3525] block">請輸入各人對應的應付款項 (同上方所選幣種)：</span>
+            <div class="space-y-1.5">
               <div class="flex items-center gap-2">
                 <input type="text" value="我" id="customName1" class="w-20 px-2 py-1 rounded-lg border border-[#DFCBB5] bg-white font-bold text-center" />
                 <input type="number" placeholder="應付金額" id="customVal1" class="flex-1 px-2.5 py-1 rounded-lg border border-[#DFCBB5] bg-white" />
@@ -339,39 +406,74 @@
             </div>
           </div>
 
-          <button onclick="submitExpense()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#B83A2D] to-[#D96B27] text-white font-bold text-xs shadow-md active:scale-95 transition">
+          <button onclick="submitExpense()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#B83B2A] to-[#D96B27] text-white font-bold text-xs shadow-md active:scale-95 transition">
             ➕ 新增這筆消費紀錄
           </button>
         </div>
 
-        <!-- 最終帳單明細與結清紀錄 -->
+        <!-- 💱 雙向匯率計算器 (整合在財務分頁內) -->
+        <div class="journal-card washi-tape-green p-4 pt-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>💱</span><span>日圓 (JPY) ↔ 港幣 (HKD) 雙向換算器</span>
+            </h3>
+            <div class="flex items-center gap-1 text-xs">
+              <span class="text-[#786355]">100¥ =</span>
+              <input type="number" step="0.01" id="ratePer100Jpy" value="5.15" onchange="handleRateUpdate(this.value)"
+                class="w-14 px-1.5 py-0.5 rounded-lg border border-[#DFCBB5] bg-[#FAF6F0] text-center font-black text-[#B83B2A]" />
+              <span class="font-bold text-[#786355]">HKD</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#DFCBB5] focus-within:border-[#B83B2A]">
+              <div class="text-[10px] font-bold text-[#786355]">🇯🇵 日圓 (JPY ¥)</div>
+              <input type="number" id="inputJpyBox" placeholder="0" oninput="onCurrencyInput('JPY')"
+                class="w-full mt-0.5 text-lg font-black text-[#4A3525] focus:outline-none bg-transparent" />
+            </div>
+            <div class="p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#DFCBB5] focus-within:border-[#3D6B4C]">
+              <div class="text-[10px] font-bold text-[#786355]">🇭🇰 港幣 (HKD $)</div>
+              <input type="number" id="inputHkdBox" placeholder="0" oninput="onCurrencyInput('HKD')"
+                class="w-full mt-0.5 text-lg font-black text-[#B83B2A] focus:outline-none bg-transparent" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="quickConvertJpy(500)" class="px-2 py-1 rounded-lg bg-[#FAF6F0] border border-[#DFCBB5] text-[11px] font-bold">¥500 (天龍寺)</button>
+            <button onclick="quickConvertJpy(1490)" class="px-2 py-1 rounded-lg bg-[#FAF6F0] border border-[#DFCBB5] text-[11px] font-bold">¥1,490 (Rapi:t)</button>
+            <button onclick="quickConvertJpy(2200)" class="px-2 py-1 rounded-lg bg-[#FAF6F0] border border-[#DFCBB5] text-[11px] font-bold">¥2,200 (HARUKA)</button>
+            <button onclick="quickConvertJpy(5500)" class="px-2 py-1 rounded-lg bg-[#FAF6F0] border border-[#DFCBB5] text-[11px] font-bold">¥5,500 (退稅門檻)</button>
+          </div>
+        </div>
+
+        <!-- 🧾 最終帳單明細與結清紀錄 -->
         <div class="journal-card p-4 space-y-3">
           <div class="flex items-center justify-between flex-wrap gap-2">
-            <h3 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
+            <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
               <span>🧾</span><span>最終帳單明細 ＆ 結清紀錄</span>
             </h3>
             <div class="flex items-center gap-1">
-              <span class="text-[11px] text-[#75625A]">顯示幣種：</span>
-              <select id="billDisplayCurrency" onchange="renderAccountingSection()" class="text-xs font-bold px-2 py-1 rounded-lg border border-[#DFCBB5] bg-[#FAF5EE]">
+              <span class="text-[11px] text-[#786355]">顯示幣種：</span>
+              <select id="billDisplayCurrency" onchange="renderAccountingSection()" class="text-xs font-bold px-2 py-1 rounded-lg border border-[#DFCBB5] bg-[#FAF6F0]">
                 <option value="HKD">HKD ($)</option>
                 <option value="JPY">JPY (¥)</option>
               </select>
             </div>
           </div>
 
-          <div id="finalBillSummary" class="bg-[#FAF5EE] p-3 rounded-2xl border border-[#E6D8C8] text-xs space-y-2">
+          <div id="finalBillSummary" class="bg-[#FAF6F0] p-3 rounded-2xl border border-[#E6D8C6] text-xs space-y-2">
             <!-- JS 動態計算 -->
           </div>
 
           <!-- 紀錄結清時間 + 文字匯出 + 圖片匯出 -->
           <div class="grid grid-cols-3 gap-1.5">
-            <button onclick="recordSettlementTimestamp()" class="py-2 px-2 rounded-xl bg-[#B83A2D] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
+            <button onclick="recordSettlementTimestamp()" class="py-2 px-2 rounded-xl bg-[#B83B2A] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
               <span>✅</span><span>標記結清</span>
             </button>
-            <button onclick="exportBillAsText()" class="py-2 px-2 rounded-xl bg-[#3E6B4C] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
+            <button onclick="exportBillAsText()" class="py-2 px-2 rounded-xl bg-[#3D6B4C] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
               <span>📋</span><span>匯出文字</span>
             </button>
-            <button onclick="exportBillAsImage()" class="py-2 px-2 rounded-xl bg-[#E8A838] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
+            <button onclick="exportBillAsImage()" class="py-2 px-2 rounded-xl bg-[#E2A03F] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95">
               <span>🖼️</span><span>匯出圖片</span>
             </button>
           </div>
@@ -382,7 +484,7 @@
           <!-- 逐筆消費明細 -->
           <div class="pt-2 border-t border-[#EFE4D6]">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-bold text-[#75625A]">所有帳目明細 (<span id="totalExpenseCount">0</span> 筆)</span>
+              <span class="text-xs font-bold text-[#786355]">所有帳目明細 (<span id="totalExpenseCount">0</span> 筆)</span>
               <button onclick="openModal('clearExpensesModal')" class="text-[11px] text-red-600 underline">清空帳目</button>
             </div>
             <div id="expenseItemsList" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
@@ -390,143 +492,125 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 4: 雙向匯率計算器 ==================== -->
-      <section id="tab-currency" class="hidden space-y-4">
-        <div class="journal-card washi-tape p-4 pt-5 space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="font-maru font-black text-sm text-[#4A2C2A] flex items-center gap-1.5">
-              <span>💱</span><span>日圓 (JPY) ↔ 港幣 (HKD) 雙向換算器</span>
-            </h2>
+      <!-- ==================== TAB 4: 隨身日文指路＆購物退稅溝通大字卡 + 預約攻略 ==================== -->
+      <section id="view-guide" class="hidden space-y-4">
+        <div class="journal-card washi-tape p-4 pt-5 space-y-2">
+          <h2 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+            <span>🇯🇵</span><span>隨身日文指路＆購物退稅大字卡</span>
+          </h2>
+          <p class="text-xs text-[#786355] leading-relaxed">
+            點擊下方任一張日文卡片，即可開啟<b>「全螢幕超大字體展示卡」</b>直接出示給日本店員、酒店櫃檯或計程車司機看！
+          </p>
+        </div>
+
+        <!-- 場景分類切換按鈕 -->
+        <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1" id="phraseCategoryBar">
+          <button onclick="filterPhraseCategory('all')" class="phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-[#B83B2A] text-white text-xs font-bold">全部場景</button>
+          <button onclick="filterPhraseCategory('taxfree')" class="phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-white border border-[#E6D8C6] text-[#4A3525] text-xs font-bold">🛍️ 購物退稅(現金)</button>
+          <button onclick="filterPhraseCategory('dining')" class="phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-white border border-[#E6D8C6] text-[#4A3525] text-xs font-bold">🍽️ 點餐買單</button>
+          <button onclick="filterPhraseCategory('hotel')" class="phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-white border border-[#E6D8C6] text-[#4A3525] text-xs font-bold">🏨 酒店入住退房</button>
+          <button onclick="filterPhraseCategory('taxi')" class="phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-white border border-[#E6D8C6] text-[#4A3525] text-xs font-bold">🚕 酒店地址/電梯</button>
+        </div>
+
+        <!-- 日文大字卡列表 -->
+        <div id="jpPhraseCardsContainer" class="space-y-3"></div>
+
+        <!-- 全行程預約與票券總覽 -->
+        <div class="pt-2 space-y-3">
+          <div class="journal-card washi-tape-green p-4 pt-5">
+            <h3 class="font-maru font-black text-sm text-[#4A3525] flex items-center gap-1.5">
+              <span>📋</span><span>全行程必訂票券與餐廳預約總覽</span>
+            </h3>
+            <p class="text-[11px] text-[#786355] mt-0.5">彙整 7 天關鍵交通車票、琉璃光院確認資訊及熱門餐廳網上訂位連結。</p>
           </div>
-
-          <!-- 自訂匯率設定 -->
-          <div class="p-3 rounded-2xl bg-[#FAF5EE] border border-[#E6D8C8] flex items-center justify-between text-xs">
-            <span class="font-bold text-[#4A2C2A]">目前設定匯率 (每 100 日圓)：</span>
-            <div class="flex items-center gap-1.5">
-              <input type="number" step="0.01" id="ratePer100Jpy" value="5.15" onchange="handleRateUpdate(this.value)"
-                class="w-16 px-2 py-1 rounded-lg border border-[#DFCBB5] bg-white text-center font-black text-[#B83A2D]" />
-              <span class="font-bold text-[#75625A]">HKD</span>
-            </div>
-          </div>
-
-          <!-- 雙向輸入框 -->
-          <div class="space-y-3">
-            <div class="p-3.5 rounded-2xl bg-white border-2 border-[#DFCBB5] focus-within:border-[#B83A2D]">
-              <div class="flex justify-between text-xs font-bold text-[#75625A]">
-                <span>🇯🇵 日圓金額 (JPY ¥)</span>
-                <span>輸入日圓自動換算港幣</span>
-              </div>
-              <input type="number" id="inputJpyBox" placeholder="0" oninput="onCurrencyInput('JPY')"
-                class="w-full mt-1 text-2xl font-black text-[#4A2C2A] focus:outline-none bg-transparent" />
-            </div>
-
-            <div class="text-center text-lg">⇅</div>
-
-            <div class="p-3.5 rounded-2xl bg-white border-2 border-[#DFCBB5] focus-within:border-[#3E6B4C]">
-              <div class="flex justify-between text-xs font-bold text-[#75625A]">
-                <span>🇭🇰 港幣金額 (HKD $)</span>
-                <span>輸入港幣自動換算日圓</span>
-              </div>
-              <input type="number" id="inputHkdBox" placeholder="0" oninput="onCurrencyInput('HKD')"
-                class="w-full mt-1 text-2xl font-black text-[#B83A2D] focus:outline-none bg-transparent" />
-            </div>
-          </div>
-
-          <!-- 常用旅遊金額快捷鍵 -->
-          <div class="space-y-1.5">
-            <span class="text-[11px] font-bold text-[#75625A]">⚡ 常用交通與餐費金額一鍵換算：</span>
-            <div class="flex flex-wrap gap-1.5">
-              <button onclick="quickConvertJpy(150)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥150 (JR東福寺)</button>
-              <button onclick="quickConvertJpy(270)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥270 (京阪/叡電)</button>
-              <button onclick="quickConvertJpy(1490)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥1,490 (Rapi:t特急)</button>
-              <button onclick="quickConvertJpy(2180)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥2,180 (嵐山套票)</button>
-              <button onclick="quickConvertJpy(2200)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥2,200 (HARUKA)</button>
-              <button onclick="quickConvertJpy(9600)" class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-xs font-bold active:scale-95">¥9,600 (約HK$500餐補)</button>
-            </div>
-          </div>
+          <div id="masterBookingList" class="space-y-2.5"></div>
         </div>
       </section>
 
     </main>
 
-    <!-- 底部快捷浮動列 -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-t border-[#E6D8C8] px-4 py-2 flex items-center justify-around shadow-[0_-4px_12px_rgba(74,44,42,0.06)]">
-      <button onclick="switchMainTab('itinerary')" class="flex flex-col items-center text-[11px] font-bold text-[#4A2C2A]">
-        <span class="text-base">🍁</span>
-        <span>當日行程</span>
+    <!-- 底部 4 分頁主導航欄 (切換時自動平滑回到頂部) -->
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-t border-[#E6D8C6] px-2 py-1.5 grid grid-cols-4 gap-1 shadow-[0_-4px_14px_rgba(74,53,37,0.08)]">
+      <button onclick="switchBottomTab('itinerary')" id="bnav-itinerary" class="bnav-btn py-1.5 rounded-2xl flex flex-col items-center justify-center text-[#B83B2A] bg-[#FDECEA]/70 font-black transition active:scale-95">
+        <span class="text-base leading-none">🍁</span>
+        <span class="text-[11px] mt-1">行程表</span>
       </button>
-      <button onclick="switchMainTab('transit')" class="flex flex-col items-center text-[11px] font-bold text-[#4A2C2A]">
-        <span class="text-base">🗺️</span>
-        <span>精細交通</span>
+      <button onclick="switchBottomTab('transit')" id="bnav-transit" class="bnav-btn py-1.5 rounded-2xl flex flex-col items-center justify-center text-[#786355] font-bold transition active:scale-95">
+        <span class="text-base leading-none">🗺️</span>
+        <span class="text-[11px] mt-1">交通/況</span>
       </button>
-      <button onclick="openModal('jpPhraseModal')" class="flex flex-col items-center text-[11px] font-bold text-[#B83A2D]">
-        <span class="text-base">🇯🇵</span>
-        <span>日文訂位卡</span>
+      <button onclick="switchBottomTab('accounting')" id="bnav-accounting" class="bnav-btn py-1.5 rounded-2xl flex flex-col items-center justify-center text-[#786355] font-bold transition active:scale-95">
+        <span class="text-base leading-none">💰</span>
+        <span class="text-[11px] mt-1">現金記帳</span>
       </button>
-      <button onclick="switchMainTab('accounting')" class="flex flex-col items-center text-[11px] font-bold text-[#4A2C2A]">
-        <span class="text-base">🧾</span>
-        <span>旅費記帳</span>
+      <button onclick="switchBottomTab('guide')" id="bnav-guide" class="bnav-btn py-1.5 rounded-2xl flex flex-col items-center justify-center text-[#786355] font-bold transition active:scale-95">
+        <span class="text-base leading-none">🇯🇵</span>
+        <span class="text-[11px] mt-1">預約/溝通</span>
       </button>
     </nav>
   </div>
 
-  <!-- ==================== 彈窗 1：總預約攻略 ==================== -->
-  <div id="bookingGuideModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
-    <div class="bg-[#FFFDF9] w-full max-w-md max-h-[85vh] rounded-3xl border-2 border-[#E6D8C8] shadow-2xl flex flex-col overflow-hidden">
-      <div class="p-4 bg-[#FAF5EE] border-b border-[#E6D8C8] flex items-center justify-between">
-        <h3 class="font-maru font-black text-sm text-[#4A2C2A]">📋 全行程必訂票券與餐廳預約總覽</h3>
-        <button onclick="closeModal('bookingGuideModal')" class="w-7 h-7 rounded-full bg-[#EFE4D6] font-bold text-xs">✕</button>
+  <!-- ==================== 彈窗 1：全螢幕日文溝通放大字卡 ==================== -->
+  <div id="fullscreenPhraseModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4" onclick="closeModal('fullscreenPhraseModal')">
+    <div class="bg-[#FFFDF9] w-full max-w-md rounded-3xl border-4 border-[#B83B2A] p-6 shadow-2xl space-y-4 text-center" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between">
+        <span id="fsPhraseBadge" class="px-3 py-1 rounded-full bg-[#FDECEA] text-[#B83B2A] text-xs font-black">溝通字卡</span>
+        <button onclick="closeModal('fullscreenPhraseModal')" class="w-8 h-8 rounded-full bg-[#EFE4D6] font-black text-sm">✕</button>
       </div>
-      <div id="masterBookingList" class="p-4 overflow-y-auto space-y-2.5 text-xs"></div>
-      <div class="p-3 bg-[#FAF5EE] border-t border-[#E6D8C8] flex justify-between">
-        <button onclick="closeModal('bookingGuideModal'); openModal('jpPhraseModal');" class="px-3 py-2 rounded-xl bg-[#D96B27] text-white font-bold text-xs">
-          🇯🇵 日文訂位小抄
+      <div class="py-4 px-3 rounded-2xl bg-[#FAF6F0] border-2 border-[#E6D8C6]">
+        <p id="fsPhraseJp" class="text-2xl font-black text-[#4A3525] leading-relaxed tracking-wide select-all"></p>
+      </div>
+      <p id="fsPhraseZh" class="text-sm font-bold text-[#786355] leading-relaxed"></p>
+      <div class="flex gap-2 pt-1">
+        <button onclick="copyCurrentFsPhrase()" class="flex-1 py-2.5 rounded-xl bg-[#3D6B4C] text-white text-xs font-bold shadow-sm">
+          📋 複製日文
         </button>
-        <button onclick="closeModal('bookingGuideModal')" class="px-4 py-2 rounded-xl bg-[#4A2C2A] text-white font-bold text-xs">關閉</button>
+        <button onclick="closeModal('fullscreenPhraseModal')" class="flex-1 py-2.5 rounded-xl bg-[#4A3525] text-white text-xs font-bold">
+          關閉畫面
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== 彈窗 2：日文訂位常用語一鍵複製 ==================== -->
-  <div id="jpPhraseModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
-    <div class="bg-[#FFFDF9] w-full max-w-md max-h-[85vh] rounded-3xl border-2 border-[#E6D8C8] shadow-2xl flex flex-col overflow-hidden">
-      <div class="p-4 bg-[#FAF5EE] border-b border-[#E6D8C8] flex items-center justify-between">
-        <h3 class="font-maru font-black text-sm text-[#4A2C2A]">🇯🇵 日本餐廳/票券網上預約・日文備註小抄</h3>
-        <button onclick="closeModal('jpPhraseModal')" class="w-7 h-7 rounded-full bg-[#EFE4D6] font-bold text-xs">✕</button>
-      </div>
-      <div id="jpPhrasesContainer" class="p-4 overflow-y-auto space-y-2.5 text-xs"></div>
-      <div class="p-3 bg-[#FAF5EE] border-t border-[#E6D8C8] text-right">
-        <button onclick="closeModal('jpPhraseModal')" class="px-4 py-2 rounded-xl bg-[#4A2C2A] text-white font-bold text-xs">完成</button>
+  <!-- ==================== 彈窗 2：調整初始日圓現金池 ==================== -->
+  <div id="cashWalletModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] w-full max-w-xs rounded-3xl border-2 border-[#E6D8C6] p-5 space-y-3 shadow-2xl">
+      <h4 class="font-maru font-black text-sm text-[#4A3525]">💴 設定初始日圓現金總額</h4>
+      <p class="text-xs text-[#786355]">預設為 <b>¥546,450</b>，若中途有再兌換日圓現金可在此修改總額。</p>
+      <input type="number" id="editInitialJpyInput" class="w-full px-3 py-2.5 rounded-xl border border-[#DFCBB5] font-black text-base text-[#B83B2A]" />
+      <div class="flex gap-2 pt-1">
+        <button onclick="closeModal('cashWalletModal')" class="flex-1 py-2 rounded-xl bg-[#EFE4D6] text-xs font-bold">取消</button>
+        <button onclick="saveInitialJpyCash()" class="flex-1 py-2 rounded-xl bg-[#B83B2A] text-white text-xs font-bold">儲存金額</button>
       </div>
     </div>
   </div>
 
   <!-- ==================== 彈窗 3：新增/編輯行程表單 ==================== -->
   <div id="itineraryEditorModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
-    <div class="bg-[#FFFDF9] w-full max-w-md max-h-[90vh] rounded-3xl border-2 border-[#E6D8C8] shadow-2xl flex flex-col overflow-hidden">
-      <div class="p-4 bg-[#FAF5EE] border-b border-[#E6D8C8] flex items-center justify-between">
-        <h3 id="editorModalTitle" class="font-maru font-black text-sm text-[#4A2C2A]">編輯行程節點</h3>
+    <div class="bg-[#FFFDF9] w-full max-w-md max-h-[90vh] rounded-3xl border-2 border-[#E6D8C6] shadow-2xl flex flex-col overflow-hidden">
+      <div class="p-4 bg-[#FAF6F0] border-b border-[#E6D8C6] flex items-center justify-between">
+        <h3 id="editorModalTitle" class="font-maru font-black text-sm text-[#4A3525]">編輯行程節點</h3>
         <button onclick="closeModal('itineraryEditorModal')" class="w-7 h-7 rounded-full bg-[#EFE4D6] font-bold text-xs">✕</button>
       </div>
       <div class="p-4 overflow-y-auto space-y-2.5 text-xs">
         <input type="hidden" id="editNodeId" />
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="font-bold text-[#75625A]">起訖時間 (例: 15:40 – 17:00)</label>
+            <label class="font-bold text-[#786355]">起訖時間 (例: 15:40 – 17:00)</label>
             <input type="text" id="nodeTime" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
           </div>
           <div>
-            <label class="font-bold text-[#75625A]">最佳停留時長</label>
+            <label class="font-bold text-[#786355]">最佳停留時長</label>
             <input type="text" id="nodeDuration" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
           </div>
         </div>
         <div>
-          <label class="font-bold text-[#75625A]">活動 / 景點標題</label>
+          <label class="font-bold text-[#786355]">活動 / 景點標題</label>
           <input type="text" id="nodeTitle" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="font-bold text-[#75625A]">預約狀態</label>
+            <label class="font-bold text-[#786355]">預約狀態</label>
             <select id="nodeStatus" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5] bg-white">
               <option value="confirmed">✅ 已預約確認</option>
               <option value="required">🔴 必須提前預約</option>
@@ -535,94 +619,187 @@
             </select>
           </div>
           <div>
-            <label class="font-bold text-[#75625A]">預約平台/連結文字</label>
-            <input type="text" id="nodeBookingLabel" placeholder="例：Klook / 官網" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
+            <label class="font-bold text-[#786355]">預約平台/標籤文字</label>
+            <input type="text" id="nodeBookingLabel" placeholder="例：ICOCA / 官網" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
           </div>
         </div>
         <div>
-          <label class="font-bold text-[#75625A]">預約網址 URL (選填)</label>
+          <label class="font-bold text-[#786355]">預約網址 URL (選填)</label>
           <input type="url" id="nodeBookingUrl" placeholder="https://..." class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
         </div>
         <div>
-          <label class="font-bold text-[#75625A]">景點亮點與注意事項</label>
+          <label class="font-bold text-[#786355]">景點亮點與注意事項</label>
           <textarea id="nodeHighlight" rows="2" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]"></textarea>
         </div>
         <div>
-          <label class="font-bold text-[#75625A]">精細交通轉乘與出口月台說明</label>
+          <label class="font-bold text-[#786355]">精細交通轉乘與出口月台說明</label>
           <textarea id="nodeTransit" rows="2" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]"></textarea>
         </div>
         <div>
-          <label class="font-bold text-[#75625A]">Google Maps 導航地標關鍵字</label>
+          <label class="font-bold text-[#786355]">Google Maps 導航地標關鍵字</label>
           <input type="text" id="nodeMapQuery" class="w-full mt-1 px-2.5 py-2 rounded-xl border border-[#DFCBB5]" />
         </div>
       </div>
-      <div class="p-3 bg-[#FAF5EE] border-t border-[#E6D8C8] flex justify-end gap-2">
+      <div class="p-3 bg-[#FAF6F0] border-t border-[#E6D8C6] flex justify-end gap-2">
         <button onclick="closeModal('itineraryEditorModal')" class="px-4 py-2 rounded-xl bg-[#EFE4D6] font-bold text-xs">取消</button>
-        <button onclick="saveEditedNode()" class="px-4 py-2 rounded-xl bg-[#B83A2D] text-white font-bold text-xs">儲存變更</button>
+        <button onclick="saveEditedNode()" class="px-4 py-2 rounded-xl bg-[#B83B2A] text-white font-bold text-xs">儲存變更</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== 彈窗 4：確認重置預設行程 ==================== -->
+  <!-- ==================== 彈窗 4：確認還原預設行程 ==================== -->
   <div id="resetConfirmModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
-    <div class="bg-[#FFFDF9] w-full max-w-xs rounded-3xl border-2 border-[#E6D8C8] p-5 text-center space-y-3 shadow-2xl">
+    <div class="bg-[#FFFDF9] w-full max-w-xs rounded-3xl border-2 border-[#E6D8C6] p-5 text-center space-y-3 shadow-2xl">
       <div class="text-3xl">🔄</div>
-      <h4 class="font-maru font-black text-sm text-[#4A2C2A]">還原為最新精準版預設行程？</h4>
-      <p class="text-xs text-[#75625A]">此操作會將 7 天行程表還原為最新核對的精準時間軸（您的記帳紀錄會完整保留）。</p>
+      <h4 class="font-maru font-black text-sm text-[#4A3525]">還原為最新最終版預設行程？</h4>
+      <p class="text-xs text-[#786355]">此操作會將 7 天行程表還原為最終確認版（您的記帳紀錄與 ¥546,450 現金設定會完整保留）。</p>
       <div class="flex gap-2 pt-1">
         <button onclick="closeModal('resetConfirmModal')" class="flex-1 py-2 rounded-xl bg-[#EFE4D6] text-xs font-bold">取消</button>
-        <button onclick="resetScheduleToDefault()" class="flex-1 py-2 rounded-xl bg-[#B83A2D] text-white text-xs font-bold">確認還原</button>
+        <button onclick="resetScheduleToDefault()" class="flex-1 py-2 rounded-xl bg-[#B83B2A] text-white text-xs font-bold">確認還原</button>
       </div>
     </div>
   </div>
 
   <!-- ==================== 彈窗 5：確認清空帳目 ==================== -->
   <div id="clearExpensesModal" class="hidden fixed inset-0 z-50 modal-overlay flex items-center justify-center p-4">
-    <div class="bg-[#FFFDF9] w-full max-w-xs rounded-3xl border-2 border-[#E6D8C8] p-5 text-center space-y-3 shadow-2xl">
+    <div class="bg-[#FFFDF9] w-full max-w-xs rounded-3xl border-2 border-[#E6D8C6] p-5 text-center space-y-3 shadow-2xl">
       <div class="text-3xl">🗑️</div>
-      <h4 class="font-maru font-black text-sm text-[#4A2C2A]">確定要清空所有記帳明細嗎？</h4>
-      <p class="text-xs text-[#75625A]">建議先點擊「匯出文字」或「匯出圖片」留存備份。</p>
+      <h4 class="font-maru font-black text-sm text-[#4A3525]">確定要清空所有記帳明細嗎？</h4>
+      <p class="text-xs text-[#786355]">建議先點擊「匯出文字」或「匯出圖片」留存備份。</p>
       <div class="flex gap-2 pt-1">
         <button onclick="closeModal('clearExpensesModal')" class="flex-1 py-2 rounded-xl bg-[#EFE4D6] text-xs font-bold">取消</button>
-        <button onclick="clearAllExpenseRecords()" class="flex-1 py-2 rounded-xl bg-[#B83A2D] text-white text-xs font-bold">確認清空</button>
+        <button onclick="clearAllExpenseRecords()" class="flex-1 py-2 rounded-xl bg-[#B83B2A] text-white text-xs font-bold">確認清空</button>
       </div>
     </div>
   </div>
 
   <!-- 輕量提示 Toast -->
-  <div id="toastNotification" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#4A2C2A] text-white text-xs font-bold px-4 py-2 rounded-full shadow-xl">
+  <div id="toastNotification" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#4A3525] text-white text-xs font-bold px-4 py-2 rounded-full shadow-xl">
     提示訊息
   </div>
 
-  <!-- 隱藏 Canvas 用於生成帳單圖檔 -->
+  <!-- 隱藏 Canvas 用於生成高清帳單圖檔 -->
   <canvas id="billExportCanvas" class="hidden"></canvas>
 
   <script>
     // =========================================================================
-    // 1. 100% 精準對齊的 2026/11/20 - 11/26 關西紅葉親子之旅預設資料
+    // 1. 最終確認版資料 (Storage Version v4)
+    //    - 除 11/22 調整為「無小火車＋天龍寺庭園＋ICOCA隨刷隨搭」外，其餘日子 100% 遵循原計劃
     // =========================================================================
-    const STORAGE_KEY = "kansai_maple_trip_2026_v3";
+    const STORAGE_KEY = "kansai_maple_trip_2026_v4";
 
-    const JP_RESERVATION_PHRASES = [
+    const JP_COMMUNICATION_CARDS = [
+      // 1. 購物退稅 (含 2026 新制機場領取日圓現金退稅)
       {
-        title: "大人人數與禁煙桌席（帶長輩最常用）",
-        jp: "大人3名で予約します。年配の家族がいるため、禁煙のテーブル席（椅子席）を希望します。",
-        zh: "預約3位大人。因有年長家人同行，希望能安排禁煙的一般桌椅座位（非榻榻米）。"
+        cat: "taxfree",
+        badge: "🛍️ 購物退稅・指定日圓現金退稅",
+        title: "指定在機場領取「日圓現金」退稅（2026新制重點）",
+        jp: "空港での現金（日本円）受け取りで登録をお願いします。",
+        zh: "請幫我登記為「在機場領取日圓現金」退稅。（2026新制：店內先付含稅價並登記現金退款，離境海關確認後在機場領日圓現金）"
       },
       {
-        title: "2位大人預約（11/24-26 父母專用）",
-        jp: "大人2名で予約します。禁煙のテーブル席をお願いします。",
-        zh: "預約2位大人，麻煩安排禁煙桌席。"
+        cat: "taxfree",
+        badge: "🛍️ 購物退稅",
+        title: "請幫我辦理免稅手續",
+        jp: "免税手続きをお願いします。パスポートはこちらです。",
+        zh: "請幫我辦理免稅手續，這是我的護照。"
       },
       {
-        title: "不吃生食 / 飲食禁忌備註",
-        jp: "生ものが苦手な者がおります。可能でしたら加熱した料理に変更いただけますでしょうか。",
-        zh: "同行有不吃生食的家人，請問是否可以更換為熟食料理？"
+        cat: "taxfree",
+        badge: "🛍️ 購物退稅",
+        title: "確認消費金額是否達到未稅 ¥5,000 免稅門檻",
+        jp: "免税対象金額（税抜き5,000円以上）に達していますか？",
+        zh: "請問目前消費金額有達到未稅 5,000 日圓（含稅 ¥5,500）的免稅門檻嗎？"
       },
       {
-        title: "寄放行李箱詢問",
-        jp: "スーツケースを持って伺いますが、店内で預かっていただけますか。",
-        zh: "我們會攜帶行李箱前往，請問店內可以協助暫時寄放嗎？"
+        cat: "taxfree",
+        badge: "🛍️ 購物結帳",
+        title: "使用信用卡一次付清 / 使用 ICOCA 付款",
+        jp: "クレジットカードで一括払いにします。／ ICOCAで支払います。",
+        zh: "我用信用卡一次付清。／ 我用 ICOCA 交通卡付款。"
+      },
+
+      // 2. 點餐＆買單場景
+      {
+        cat: "dining",
+        badge: "🍽️ 點餐座位・長輩同行必備",
+        title: "要求一般桌椅座位（不要榻榻米跪坐）",
+        jp: "年配の家族がいるので、お座敷ではなくテーブル席（椅子席）をお願いします。",
+        zh: "因為有年長家人同行，請安排有椅子的一般桌席，不要榻榻米席。"
+      },
+      {
+        cat: "dining",
+        badge: "🍽️ 點餐需求",
+        title: "要熱開水 / 飲料去冰",
+        jp: "お湯（白湯）をいただけますか？／ 飲み物は氷なしでお願いします。",
+        zh: "請問可以給我一杯熱開水嗎？／ 飲料請幫我去冰。"
+      },
+      {
+        cat: "dining",
+        badge: "🍽️ 點餐菜單",
+        title: "索取英文或中文菜單",
+        jp: "英語か中国語のメニューはありますか？",
+        zh: "請問有英文或中文菜單嗎？"
+      },
+      {
+        cat: "dining",
+        badge: "🍽️ 買單結帳",
+        title: "一起結帳買單（不分開付）",
+        jp: "お会計をお願いします。別々ではなく、まとめて支払います。",
+        zh: "麻煩買單，我們全部一起結帳，不分開付款。"
+      },
+
+      // 3. 酒店 Check-in / Check-out 場景
+      {
+        cat: "hotel",
+        badge: "🏨 酒店入住",
+        title: "辦理 Check-in 入住手續",
+        jp: "チェックインをお願いします。予約している【S L CHAN】です。",
+        zh: "請幫我辦理入住手續，預約人姓名是 S L CHAN。"
+      },
+      {
+        cat: "hotel",
+        badge: "🏨 寄放行李",
+        title: "入住前先寄放行李箱",
+        jp: "チェックイン前ですが、荷物を預かっていただけますか？",
+        zh: "雖然還沒到入住時間，請問可以先寄放行李嗎？"
+      },
+      {
+        cat: "hotel",
+        badge: "🏨 酒店退房",
+        title: "辦理退房並當日暫存行李",
+        jp: "チェックアウトをお願いします。今日中に取りに来ますので、荷物を預かってもらえますか？",
+        zh: "請幫我辦理退房。我們今天之內會回來拿，可以暫時寄放行李嗎？"
+      },
+      {
+        cat: "hotel",
+        badge: "🏨 酒店叫車",
+        title: "請酒店櫃檯幫忙叫計程車前往車站",
+        jp: "駅まで行きたいので、タクシーを1台呼んでいただけますか？",
+        zh: "我們要去車站（京都站/南海難波站），請問可以幫忙叫一輛計程車嗎？"
+      },
+
+      // 4. 酒店地址指路＆找電梯場景
+      {
+        cat: "taxi",
+        badge: "🚕 京都酒店計程車指路卡",
+        title: "羅伊西爾京都東寺酒店（11/20–11/23）",
+        jp: "運転手さん、このホテルまでお願いします：\n【ロワジールホテル 京都東寺】\n住所：京都市南区西九条蔵王町31-1\n電話：075-681-5656",
+        zh: "司機先生，請載我們到「羅伊西爾京都東寺酒店」（JR京都站八條口西南側・近鐵東寺站旁）。"
+      },
+      {
+        cat: "taxi",
+        badge: "🚕 大阪酒店計程車指路卡",
+        title: "DEL style 大阪心齋橋酒店（11/23–11/26）",
+        jp: "運転手さん、このホテルまでお願いします：\n【DEL style 大阪心斎橋 by ダイワロイネットホテル】\n住所：大阪市中央区南船場3-9-8\n電話：06-6120-6880",
+        zh: "司機先生，請載我們到「DEL style 大阪心齋橋酒店 by 大和 ROYNET」（心齋橋站步行3分鐘）。"
+      },
+      {
+        cat: "taxi",
+        badge: "🛗 車站找電梯",
+        title: "詢問車站或商場電梯位置（搬行李/長輩同行）",
+        jp: "大きなスーツケースと年配の家族がいます。エレベーターはどこにありますか？",
+        zh: "我們有大件行李箱和年長家人同行，請問電梯在哪裡？"
       }
     ];
 
@@ -631,8 +808,8 @@
         day: "11/20 (五)",
         title: "JR HARUKA 關西機場優惠單程票（WEST QR）",
         status: "recommended",
-        badge: "🟡 建議出發前網上購買 (¥2,200/人)",
-        platform: "Klook / KKday / JR-WEST 官網",
+        badge: "🟡 建議線上購買 QR 票 (¥2,200/人)",
+        platform: "JR-WEST 官網 / Klook",
         url: "https://www.westjr.co.jp/global/tc/ticket/pass/one_way/haruka/",
         note: "20:20 降落後趕 22:16 Haruka 60號（末班 22:48），預購 QR 電子票到機場自動售票機掃碼取票最快。"
       },
@@ -641,75 +818,67 @@
         title: "八瀨 琉璃光院（15:40–16:00 場次）",
         status: "confirmed",
         badge: "✅ 已成功預約確認",
-        platform: "琉璃光院官方預約",
+        platform: "琉璃光院官方網站",
         url: "https://rurikoin.komyoji.com/",
-        note: "15:15–15:40 務必先至八瀨車站旁售票處出示預約憑證換取實體入場券，並自備厚羊毛襪。"
+        note: "15:15–15:40 務必先至八瀨車站旁售票處換取實體入場券，並自備厚羊毛襪。"
       },
       {
         day: "11/21 (六)",
-        title: "京都晚餐：京の焼肉処 弘（先斗町/木屋町/京都站前）",
+        title: "京都晚餐：京の焼肉処 弘（京都站前/先斗町）",
         status: "required",
-        badge: "🔴 必須提前 30 天官網預約",
+        badge: "🔴 必須提前官網預約",
         platform: "焼肉弘官方網上訂位",
         url: "https://yakiniku-hiro.com/",
-        note: "看完永觀堂夜楓後 20:00+ 用餐，紅葉季晚市無預約幾乎客滿，建議提前一個月在官網搶位。"
+        note: "看完永觀堂夜楓後 20:00+ 用餐，紅葉季晚市無預約幾乎客滿。"
       },
       {
         day: "11/22 (日)",
-        title: "阪急一日通票 ＆ 嵯峨野遊覽小火車單程電子車票套票",
-        status: "required",
-        badge: "🔴 搶票首選套票 (¥2,180)",
-        platform: "Klook / KKday 套票預訂",
-        url: "https://www.klook.com/zh-HK/",
-        note: "解決小火車單買秒殺問題！早上搭小火車賞嵐山紅葉，中午直接用附贈的阪急一日通票免費搭到烏丸/京都河原町。"
-      },
-      {
-        day: "11/22 (日)",
-        title: "嵐山/河原町午餐：嵯峨とうふ 稲 或 京料理",
-        status: "recommended",
-        badge: "🟡 建議 Tabelog 網上預約",
-        platform: "Tabelog 網上訂位",
-        url: "https://tabelog.com/kyoto/",
-        note: "週日賞楓人潮極多，提前預約 12:30–13:00 時段可讓父母免站立排隊。"
+        title: "嵐山賞楓（無小火車・ICOCA 隨刷隨搭＋天龍寺）",
+        status: "walkin",
+        badge: "🔵 無需買套票・全程刷手機 ICOCA",
+        platform: "天龍寺官方網站",
+        url: "https://www.tenryuji.com/",
+        note: "已取消小火車與阪急一日券，改為上午徒步賞常寂光寺、竹林小徑與天龍寺曹源池庭園（門票 ¥500 現場購票）。"
       },
       {
         day: "11/23 (一) & 11/26 (四)",
         title: "南海電鐵特急 Rapi:t（難波 ↔ 關西機場）",
         status: "recommended",
-        badge: "🟡 建議網上買特惠電子票 (¥1,250–1,490)",
-        platform: "Klook / 南海電鐵官網",
+        badge: "🟡 建議購買特惠電子票 (¥1,250–1,490)",
+        platform: "南海電鐵官網 / Klook",
         url: "https://www.howto-osaka.com/tc/ticket/",
-        note: "全車對號入座且設有大型行李架，11/23 你搭 16:30 班次、11/26 父母搭 11:30 或 12:00 班次最舒適。"
+        note: "全車對號入座且設大型行李架。11/23 你搭 16:30 班次、11/26 父母搭 11:30 或 12:00 班次。"
       },
       {
         day: "11/25 (三)",
         title: "父母【海之京都】天橋立 ＆ 伊根舟屋中文一日遊巴士團",
         status: "required",
-        badge: "🔴 必須提前網上預訂（選難波/心齋橋集合）",
+        badge: "🔴 必須預訂難波/心齋橋集合團",
         platform: "Klook / KKday 中文一日團",
         url: "https://www.klook.com/zh-HK/",
-        note: "務必選「難波/心齋橋（蟹道樂道頓堀東店或日本橋出口）」上下車，離酒店步行僅 8–10 分鐘，團費含纜車與遊船票。"
+        note: "務必選「難波/心齋橋（蟹道樂道頓堀東店或日本橋出口）」上下車，離酒店步行僅 8–10 分鐘。"
       },
       {
         day: "11/25 (三)",
         title: "大阪畢業大餐：道頓堀 蟹道樂 本店/中店",
         status: "required",
-        badge: "🔴 必須提前 1 個月繁中官網預約",
+        badge: "🔴 必須提前繁中官網預約",
         platform: "蟹道樂官方網站 (繁體中文)",
         url: "https://douraku.co.jp/kansai/",
         note: "慶祝父母賞楓圓滿成功，官網可直接選擇人數與禁煙桌席。"
       }
     ];
 
-    const EXACT_ITINERARY_DAYS = [
+    const FINAL_ITINERARY_DAYS = [
+      // ==================== DAY 1: 11/20 (原定計劃 100% 保留) ====================
       {
         date: "11/20",
         weekday: "週五",
         dayLabel: "Day 1",
-        theme: "降落關西機場 ➡️ 京都東寺酒店 ➡️ 深夜拉麵",
-        pax: 3, // 3人 * HK$500 = HK$1,500
+        theme: "抵達關西機場 ➡️ 京都東寺酒店 ➡️ 深夜拉麵",
+        pax: 3,
         hotel: "羅伊西爾京都東寺酒店 (LOISIR HOTEL KYOTO TOJI)",
-        debugNotice: "💡 2026 實時核實：11/20 為週五，本家第一旭（京都站前店）營業至凌晨 01:00（週四公休，週五正常營業）。若深夜排隊超過 30 分鐘，可直接吃隔壁同樣老字號的「新進展拉麵」備案！",
+        debugNotice: "💡 2026 實時核實：11/20 為週五，本家第一旭（京都站前店）營業至 01:00（週四公休，週五正常營業）。深夜抵達京都站八條口後步行 11 分鐘（或搭計程車 3 分鐘約 ¥500–600）即達酒店。",
         nodes: [
           {
             id: "d1-n1",
@@ -719,20 +888,20 @@
             status: "confirmed",
             bookingLabel: "航班已確認",
             bookingUrl: "",
-            highlight: "紅葉旺季晚間國際線航班集中，下機後建議快速前往入境審查大廳。",
-            transit: "依循「到着 Arrival / 入境審查」指標前進。",
+            highlight: "下機後依循「到着 Arrival / 入境審查」指標快速前往辦理入境。",
+            transit: "關西機場第一航廈國際線抵達大廳。",
             mapQuery: "Kansai International Airport Terminal 1"
           },
           {
             id: "d1-n2",
             time: "20:20 – 21:40",
             duration: "預留 80 分鐘",
-            title: "辦理入境手續、海關申報與提領行李",
+            title: "辦理入境手續、提領行李",
             status: "walkin",
             bookingLabel: "Visit Japan Web",
             bookingUrl: "https://vjw-lp.digital.go.jp/zh-hant/",
-            highlight: "提前填好 Visit Japan Web QR Code 可大幅加快過關速度。",
-            transit: "領取行李後搭電扶梯上 2 樓，經聯絡空橋步行至對面「JR 關西空港站」。",
+            highlight: "預留 80 分鐘辦理入境審查、提領託運行李與海關申報。",
+            transit: "領取行李後上 2 樓經聯絡空橋步行至對面「JR 關西空港站」。",
             mapQuery: "Kansai Airport Station"
           },
           {
@@ -743,44 +912,44 @@
             status: "recommended",
             bookingLabel: "HARUKA WEST QR (¥2,200)",
             bookingUrl: "https://www.westjr.co.jp/global/tc/ticket/pass/one_way/haruka/",
-            highlight: "使用車站內白色或綠色自動售票機掃描護照與 QR Code 兌換實體車票，免排人工窗口。",
-            transit: "持車票進入 JR 藍色閘口，下樓至 4 號月台候車。",
+            highlight: "步行至機場對面「JR 關西空港站」，使用自動售票機掃描 QR Code 兌換 HARUKA 優惠單程票（¥2,200/人）。",
+            transit: "持車票進 JR 藍色閘口，下樓至 4 號月台候車。",
             mapQuery: "JR Kansai Airport Station"
           },
           {
             id: "d1-n4",
             time: "22:16 – 23:34",
             duration: "車程 78 分鐘",
-            title: "🌟 關鍵特急：JR 關空特急 Haruka 60號直達京都站",
+            title: "搭乘 JR 關空特急 Haruka 60號 直達京都站",
             status: "confirmed",
             bookingLabel: "Haruka 60號 (末班 22:48)",
             bookingUrl: "",
-            highlight: "直達京都站免轉車！萬一班機延誤，務必趕上最後一班 Haruka 62號（22:48 開車 ➡️ 23:59 到京都）。",
-            transit: "抵達 JR 京都站 30 號月台後，依指標前往「八條口（Hachijo Exit）」出站。",
+            highlight: "車程 78 分鐘直達京都站。末班車備案：若航班延誤，務必趕上最後一班 Haruka 62號（22:48 發車 ➡️ 23:59 抵達京都）。",
+            transit: "抵達 JR 京都站後，依指標前往「八條口（Hachijo Exit）」出站。",
             mapQuery: "Kyoto Station Hachijo Exit"
           },
           {
             id: "d1-n5",
             time: "23:40 – 23:55",
             duration: "約 15 分鐘",
-            title: "抵達【羅伊西爾京都東寺酒店】辦理 Check-in",
+            title: "抵達【羅伊西爾京都東寺酒店】辦理入住",
             status: "confirmed",
             bookingLabel: "住宿已確認",
             bookingUrl: "",
-            highlight: "從京都站八條口步行約 11 分鐘；若深夜父母拖大行李較累，可直接在八條口計程車乘車處搭車（車程 3 分鐘，約 ¥500–600）。",
-            transit: "沿八條通向西步行至大宮通左轉即達酒店（近鐵東寺站步行僅 4 分鐘）。",
+            highlight: "從京都站「八條口」出站，步行約 11 分鐘（或搭計程車 3 分鐘，約 ¥500–600）抵達羅伊西爾京都東寺酒店辦理入住。",
+            transit: "從八條口沿八條通向西步行至大宮通左轉即達（可點擊「預約/溝通」分頁出示計程車指路卡）。",
             mapQuery: "LOISIR HOTEL KYOTO TOJI"
           },
           {
             id: "d1-n6",
             time: "00:00+",
-            duration: "約 45 分鐘",
-            title: "深夜宵夜：本家第一旭（京都站前店）或 新進展拉麵",
+            duration: "深夜宵夜",
+            title: "宵夜：本家第一旭 或 新進展拉麵（京都站八條口附近）",
             status: "walkin",
             bookingLabel: "營業至 01:00",
             bookingUrl: "",
-            highlight: "11 月底京都深夜氣溫約 6–8°C，一碗熱騰騰的京都傳統醬油豚骨拉麵最能消除搭機疲勞。",
-            transit: "步行返回京都站八條口東側（高架橋旁）即達兩間老字號拉麵店。",
+            highlight: "步行返回京都站八條口附近的「本家第一旭」（營業至 01:00）或旁邊的「新進展拉麵」享用熱騰騰的深夜拉麵。",
+            transit: "從酒店步行約 10 分鐘返回京都站八條口東側高架橋旁。",
             mapQuery: "Honke Daiichi Asahi Kyoto"
           }
         ],
@@ -796,7 +965,7 @@
             mapQuery: "Honke Daiichi Asahi Kyoto"
           },
           {
-            name: "新福菜館 本店（第一旭隔壁）",
+            name: "新福菜館 本店（第一旭正隔壁）",
             category: "創業80年・京都黑醬油拉麵",
             bookingBadge: "🔵 現場排隊（第一旭最佳備案）",
             bookingUrl: "https://tabelog.com/kyoto/A2601/A260101/26000874/",
@@ -812,7 +981,7 @@
             bookingUrl: "https://gyukatsu-kyotokatsugyu.com/",
             cost: "¥2,400 (約 HK$124)",
             mustOrder: "特選黑毛和牛炸牛排膳（附小烤盤可自行調整熟度）",
-            reason: "營業至 22:30/23:00，外酥內嫩的牛肉可依父母喜好在個人小鐵板上煎至全熟。",
+            reason: "外酥內嫩的牛肉可依父母喜好在個人小鐵板上煎至全熟，肉香十足。",
             mapQuery: "Gyukatsu Kyoto Katsugyu Kyoto Ekimae"
           },
           {
@@ -826,7 +995,7 @@
             mapQuery: "Katsukura Kyoto Station"
           },
           {
-            name: "鳥貴族 京都八條口店（步行5分鐘）",
+            name: "鳥貴族 京都八條口店（東寺酒店步行5分鐘）",
             category: "連鎖居酒屋・均一價串燒",
             bookingBadge: "🟢 HotPepper 網上預約",
             bookingUrl: "https://www.hotpepper.jp/",
@@ -837,14 +1006,16 @@
           }
         ]
       },
+
+      // ==================== DAY 2: 11/21 (原定計劃 100% 保留) ====================
       {
         date: "11/21",
         weekday: "週六",
         dayLabel: "Day 2",
-        theme: "東福寺 ➡️ 琉璃光院(15:40預約) ➡️ 永觀堂夜楓 ➡️ 市區晚餐",
+        theme: "東福寺 ➡️ 琉璃光院(15:40預約) ➡️ 永觀堂夜楓",
         pax: 3,
         hotel: "羅伊西爾京都東寺酒店 (LOISIR HOTEL KYOTO TOJI)",
-        debugNotice: "💡 2026 實時核實：永觀堂 2026 秋季夜楓於 11/20–12/06 舉行（17:30–21:00），今天剛好是第 2 天！琉璃光院已預約下午 15:40 場次，務必自備厚羊毛襪（室內脫鞋地板極冷）。",
+        debugNotice: "💡 2026 實時核實：今日全程採用「鐵道串聯（JR + 京阪 + 叡山電車）」，完全避開紅葉季大塞車的京都市巴士。琉璃光院已預約 15:40–16:00 場次，室內需脫鞋且木地板極冷，請務必自備厚羊毛襪。",
         nodes: [
           {
             id: "d2-n1",
@@ -854,43 +1025,43 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥150)",
             bookingUrl: "",
-            highlight: "全程改用鐵道（JR + 京阪 + 叡山電車），完美避開紅葉季大塞車的京都市巴士！",
-            transit: "從酒店步行約 11 分鐘至 JR 京都站，搭乘「JR 奈良線（普通列車）」1 站即達「東福寺站」（車程 3 分鐘，¥150）。",
+            highlight: "從酒店步行約 11 分鐘至 JR 京都站，搭乘 JR 奈良線（普通列車，1 站，車程 3 分鐘，¥150）至「東福寺站」。",
+            transit: "JR 京都站 8/9/10 號月台搭乘 JR 奈良線普通列車至「東福寺站」。",
             mapQuery: "Tofukuji Station Kyoto"
           },
           {
             id: "d2-n2",
             time: "08:20 – 10:15",
             duration: "約 1 小時 55 分",
-            title: "第一站：東福寺（通天橋震撼楓海）",
+            title: "東福寺（通天橋滿山楓海）",
             status: "walkin",
-            bookingLabel: "現場購票 (08:30開門)",
+            bookingLabel: "08:30 開門第一批",
             bookingUrl: "https://tofukuji.jp/",
-            highlight: "08:20 前抵達排隊，爭取 08:30 第一批衝上「通天橋」拍攝無人頭遮擋的滿山楓紅溪谷。",
-            transit: "JR 東福寺站出站後跟隨人潮與指標步行約 8 分鐘即達。",
+            highlight: "08:20 前抵達排隊，爭取 08:30 開門第一批進入「通天橋」拍攝無遮擋的滿山楓海。",
+            transit: "JR 東福寺站出站後跟隨人潮步行約 8 分鐘即達。",
             mapQuery: "Tofukuji Temple Tsutenkyo Bridge"
           },
           {
             id: "d2-n3",
             time: "10:15 – 10:40",
             duration: "約 25 分鐘",
-            title: "鐵道移動：京阪本線直達終點「出町柳站」",
+            title: "搭乘京阪本線直達終點站「出町柳站」",
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥270)",
             bookingUrl: "",
-            highlight: "京阪電車沿鴨川地下行駛，準點舒適。",
-            transit: "步行至京阪「東福寺站」，搭乘「京阪本線（準急/普通）」往出町柳方向直達終點站（車程約 15 分鐘，¥270）。",
+            highlight: "步行至京阪「東福寺站」，搭乘京阪本線直達終點站「出町柳站」（車程約 15 分鐘，¥270）。",
+            transit: "京阪東福寺站 1 號月台往出町柳方向直達終點。",
             mapQuery: "Demachiyanagi Station Kyoto"
           },
           {
             id: "d2-n4",
             time: "11:00 – 13:00",
             duration: "約 2 小時",
-            title: "出町柳午餐 ＆ 鴨川三角洲「跳烏龜石」散步",
+            title: "出町柳午餐 ＆ 鴨川散步（跳烏龜石）",
             status: "walkin",
             bookingLabel: "在地小店午餐",
             bookingUrl: "",
-            highlight: "避開大景點排隊潮，在鴨川河畔小店吃蕎麥麵或定食，飯後體驗京都人最愛的鴨川跳烏龜石。",
+            highlight: "於出町柳周邊小店享用午餐（如蕎麥麵或定食），飯後至鴨川三角洲「跳烏龜石」漫步。",
             transit: "出町柳站出站步行 2 分鐘即達鴨川三角洲。",
             mapQuery: "Kamogawa Delta Kyoto"
           },
@@ -898,12 +1069,12 @@
             id: "d2-n5",
             time: "13:15 – 14:30",
             duration: "約 1 小時 15 分",
-            title: "第二站：下鴨神社（糾之森原始紅葉步道）",
+            title: "下鴨神社（糾之森原始紅葉林）",
             status: "walkin",
-            bookingLabel: "免費參拜 (06:30–17:00)",
+            bookingLabel: "免費參拜",
             bookingUrl: "https://www.shimogamo-jinja.or.jp/",
-            highlight: "午後陽光灑落古老原始森林「糾之森」，紅黃綠交錯氣氛沉靜，路面平坦極適合父母散步。",
-            transit: "從出町柳站過河步行約 10 分鐘即達下鴨神社表參道。",
+            highlight: "從出町柳步行 10 分鐘抵達，漫步於靜謐的「糾之森」原始紅葉林。",
+            transit: "出町柳站過河沿表參道步行約 10 分鐘即達。",
             mapQuery: "Shimogamo Shrine Kyoto"
           },
           {
@@ -914,19 +1085,19 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥270)",
             bookingUrl: "",
-            highlight: "每 15 分鐘一班，沿途窗外即可欣賞比叡山腳楓紅。",
-            transit: "返回叡山電鐵「出町柳站」，搭乘「叡山本線（往八瀨比叡山口）」直達終點站（車程 14 分鐘，¥270）。",
+            highlight: "返回出町柳站，搭乘叡山電鐵本線（往八瀨比叡山口）直達終點「八瀨比叡山口站」（車程 14 分鐘，每 15 分鐘一班，¥270）。",
+            transit: "叡山電鐵出町柳站搭乘往「八瀨比叡山口」方向列車直達終點。",
             mapQuery: "Yase-Hieizanguchi Station"
           },
           {
             id: "d2-n7",
             time: "15:15 – 15:40",
             duration: "預留 25 分鐘",
-            title: "🌟 關鍵換票：八瀨車站旁售票處兌換實體入場券",
+            title: "步行 5 分鐘至琉璃光院入口報到並換取實體入場券",
             status: "confirmed",
-            bookingLabel: "務必 15:40 前換票",
+            bookingLabel: "務必 15:40 前報到",
             bookingUrl: "https://rurikoin.komyoji.com/",
-            highlight: "抵達八瀨站後步行 5 分鐘至琉璃光院入口售票處，出示預約憑證換取實體門票並排隊。",
+            highlight: "步行 5 分鐘至琉璃光院入口報到並換取實體入場券。",
             transit: "出站過高野川小橋沿溪畔步行約 5 分鐘。",
             mapQuery: "Rurikoin Temple Kyoto"
           },
@@ -934,71 +1105,61 @@
             id: "d2-n8",
             time: "15:40 – 17:00",
             duration: "約 1 小時 20 分",
-            title: "第三站：琉璃光院（已預約 15:40–16:00 場次）",
+            title: "琉璃光院參觀（已預約 15:40–16:00 場次）",
             status: "confirmed",
             bookingLabel: "✅ 已預約 15:40 場次",
             bookingUrl: "https://rurikoin.komyoji.com/",
-            highlight: "黃昏斜陽射入二樓書院，漆黑長桌倒映滿山漸層楓紅最夢幻！⚠️室內需脫鞋且木地板極冷，請務必自備厚羊毛襪。",
-            transit: "參觀結束後於 17:00 步行返回八瀨比叡山口站。",
+            highlight: "欣賞夕陽斜射下漆黑長桌的夢幻楓紅倒影。（⚠️ 提醒：室內需脫鞋且木地板極冷，請務必自備厚羊毛襪）。",
+            transit: "17:00 參觀結束後步行返回八瀨比叡山口站。",
             mapQuery: "Rurikoin Temple Kyoto"
           },
           {
             id: "d2-n9",
             time: "17:00 – 17:45",
             duration: "約 45 分鐘",
-            title: "夜楓移動：八瀨 ➔ 出町柳 ➔ 神宮丸太町 ➔ 計程車直達永觀堂",
+            title: "夜楓移動：叡電 ➔ 京阪本線 ➔ 計程車直達永觀堂",
             status: "walkin",
             bookingLabel: "鐵道+計程車 (約¥1,000)",
             bookingUrl: "",
-            highlight: "完美路線優化！不走回頭路，直接抵達永觀堂門口省體力。",
-            transit: "搭叡電回「出町柳站」（14分），轉「京阪本線」至「神宮丸太町站」（3分，¥170），出站轉乘計程車約 8 分鐘（約 ¥1,000）直達永觀堂。",
+            highlight: "搭乘叡電返回「出町柳站」（14 分鐘），轉乘京阪本線至「神宮丸太町站」（3 分鐘，¥170），出站後轉乘計程車約 8 分鐘（約 ¥1,000）直達永觀堂。",
+            transit: "八瀨站搭叡電至出町柳 ➔ 轉京阪本線至神宮丸太町站 ➔ 計程車 8 分鐘直達永觀堂。",
             mapQuery: "Jingu-Marutamachi Station"
           },
           {
             id: "d2-n10",
             time: "17:45 – 19:30",
             duration: "約 1 小時 45 分",
-            title: "加碼夜楓：永觀堂（禪林寺・夜楓之王）",
+            title: "永觀堂（夜楓之王）",
             status: "walkin",
             bookingLabel: "夜楓 17:30–21:00",
             bookingUrl: "https://www.eikando.or.jp/",
-            highlight: "此時剛好避開 17:30 剛開門排 1.5 小時的恐怖人潮，順暢欣賞放生池倒映夜楓與多寶塔絕景。",
-            transit: "結束後步行約 12 分鐘至地鐵「蹴上站」。",
+            highlight: "此時段剛好避開 17:30 剛開門的排隊人龍，可順暢欣賞放生池倒映夜楓的絕景。",
+            transit: "參觀結束後步行至地鐵「蹴上站」（約 12 分鐘）。",
             mapQuery: "Eikando Zenrinji Temple"
           },
           {
             id: "d2-n11",
             time: "20:00+",
-            duration: "晚餐時間",
-            title: "市區晚餐（祇園/四條河原町 或 返回京都站）",
+            duration: "晚餐與返程",
+            title: "晚餐與返程：地鐵蹴上站返回京都站用餐並回酒店",
             status: "recommended",
             bookingLabel: "建議提前訂位",
             bookingUrl: "https://yakiniku-hiro.com/",
-            highlight: "享用和牛燒肉或京料理後返回東寺酒店休息。",
-            transit: "從地鐵「蹴上站」搭東西線至「烏丸御池站」轉烏丸線直達「京都站」（約 18 分鐘，¥290）。",
+            highlight: "步行至地鐵「蹴上站」（約 12 分鐘），搭乘地下鐵東西線至「烏丸御池站」轉乘烏丸線直達「京都站」（車程約 18 分鐘，¥290），於京都站周邊享用晚餐後步行回酒店。",
+            transit: "蹴上站搭東西線至烏丸御池站 ➔ 轉烏丸線直達京都站（18 分鐘，¥290）。",
             mapQuery: "Keage Station Kyoto"
           }
         ],
         foods: [
           {
-            name: "京の焼肉処 弘（先斗町店 / 木屋町店 / 京都站前店）",
+            name: "京の焼肉処 弘（京都站前店 / 八條口店）",
             category: "京都必吃・整頭買入黑毛和牛",
-            bookingBadge: "🔴 必須提前 30 天官網預約",
+            bookingBadge: "🔴 必須提前官網預約",
             bookingUrl: "https://yakiniku-hiro.com/",
             cost: "¥5,800 (約 HK$299)",
             mustOrder: "姿切り牛舌、九條蔥和牛里肌、壺漬牛肋條",
-            reason: "看完永觀堂夜楓後大口吃和牛最暖身！肉質極佳且服務周到，務必提前在官網預約晚市座位。",
-            mapQuery: "Yakiniku Hiro Pontocho"
-          },
-          {
-            name: "おめん 銀閣寺本店 / 先斗町店",
-            category: "京都名物・沾汁手打烏龍麵",
-            bookingBadge: "🟡 建議官網/電話預約",
-            bookingUrl: "https://www.omen.co.jp/",
-            cost: "¥1,800 (約 HK$93)",
-            mustOrder: "名代おめん（熱湯沾麵配滿滿京都季節野菜與金芝麻）",
-            reason: "京都創業逾 50 年的名店，將熱騰騰烏龍麵與十幾種蔬菜絲一起沾濃郁柴魚高湯吃，長輩超愛。",
-            mapQuery: "Omen Pontocho Kyoto"
+            reason: "返回京都站後大口吃和牛最暖身，肉質極佳且距離東寺酒店步行可達。",
+            mapQuery: "Yakiniku Hiro Kyoto Ekimae"
           },
           {
             name: "出町ふたば（出町柳站旁・午餐順路）",
@@ -1029,17 +1190,29 @@
             mustOrder: "特濃高湯咖哩烏龍麵（可選微辣）、炸豆皮烏龍麵",
             reason: "南禪寺與永觀堂周邊最受當地人推崇的老店，柴魚高湯融合微辣咖哩香，秋夜吃一碗全身暖呼呼。",
             mapQuery: "Hinode Udon Kyoto"
+          },
+          {
+            name: "東洋亭 京都Porta店（京都站地下街）",
+            category: "百年洋食・錫箔紙包漢堡排",
+            bookingBadge: "🔵 現場排隊名店",
+            bookingUrl: "https://www.touyoutei.co.jp/",
+            cost: "¥2,100 (約 HK$108)",
+            mustOrder: "百年洋食漢堡排（附整顆冰鎮番茄沙拉與烤馬鈴薯）",
+            reason: "京都創業逾百年的洋食經典，切開鼓鼓的錫箔紙瞬間牛肉湯汁香氣四溢。",
+            mapQuery: "Toyotei Kyoto Porta"
           }
         ]
       },
+
+      // ==================== DAY 3: 11/22 (已更新：無小火車＋加碼天龍寺＋ICOCA隨刷隨搭) ====================
       {
         date: "11/22",
         weekday: "週日",
         dayLabel: "Day 3",
-        theme: "嵐山小火車與紅葉 ➡️ 阪急一日通 ➡️ 清水寺夜間特別參拜",
+        theme: "嵐山徒步賞楓＆天龍寺庭園 ➡️ 清水寺夜間特別參拜",
         pax: 3,
         hotel: "羅伊西爾京都東寺酒店 (LOISIR HOTEL KYOTO TOJI)",
-        debugNotice: "💡 2026 實時核實：已改用「阪急一日通票＆嵯峨野小火車單程套票（¥2,180）」。逛完嵐山後步行至「阪急嵐山站」，搭 1 站至「桂站」對面月台轉乘阪急京都本線直達烏丸/河原町，全線免費涵蓋！清水寺夜楓建議 16:45 提前門口排隊等 17:30 開門。",
+        debugNotice: "💡 2026 實時核實：今日已取消嵐山小火車與阪急一日通票，全程使用手機 ICOCA 隨刷隨搭最省錢！上午把時間留給「竹林小徑 ➔ 常寂光寺 ➔ 天龍寺曹源池庭園（門票 ¥500，北門進正門出不走回頭路）」，步調更從容。",
         nodes: [
           {
             id: "d3-n1",
@@ -1049,55 +1222,55 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥240)",
             bookingUrl: "",
-            highlight: "早起出發是週日攻略嵐山的不二法門，避開 10 點後的旅行團人潮。",
-            transit: "步行至 JR 京都站（32/33 月台），搭乘「JR 山陰本線（嵯峨野線）」直達「嵯峨嵐山站」（車程 17 分鐘，¥240）。",
+            highlight: "步行至 JR 京都站，搭乘 JR 山陰本線（嵯峨野線）直達「嵯峨嵐山站」（車程 17 分鐘，¥240）。",
+            transit: "JR 京都站 32/33 號月台搭乘 JR 嵯峨野線直達「嵯峨嵐山站」。",
             mapQuery: "Saga-Arashiyama Station"
           },
           {
             id: "d3-n2",
             time: "08:30 – 11:30",
             duration: "約 3 小時",
-            title: "第一站：嵐山（嵯峨野小火車＋常寂光寺、竹林小徑、渡月橋）",
-            status: "confirmed",
-            bookingLabel: "✅ 阪急＆小火車套票 (¥2,180)",
-            bookingUrl: "https://www.sagano-kanko.co.jp/tc/",
-            highlight: "搭乘預約好的嵯峨野遊覽小火車欣賞保津川峽谷紅葉，並順遊賞楓名所「常寂光寺」、竹林小徑與渡月橋，中午前離開。",
-            transit: "依套票指定小火車站點（小火車嵯峨站或龜岡站）憑電子憑證換票乘車。",
-            mapQuery: "Jojakkoji Temple Arashiyama"
+            title: "嵐山深度賞楓：竹林小徑、常寂光寺、天龍寺庭園、渡月橋",
+            status: "walkin",
+            bookingLabel: "天龍寺門票 ¥500 現場購票",
+            bookingUrl: "https://www.tenryuji.com/",
+            highlight: "免去排小火車限制！08:45 前先走無人竹林小徑 ➔ 09:00 準時進賞楓名所「常寂光寺」➔ 順路遊「天龍寺曹源池庭園」（北門進、正門出一路下坡最省力）➔ 渡月橋與嵐山大街漫步，中午前離開避開旅行團。",
+            transit: "從 JR 嵯峨嵐山站步行依序串聯竹林、常寂光寺、天龍寺與渡月橋，全程徒步約 2.2 公里。",
+            mapQuery: "Tenryuji Temple Arashiyama"
           },
           {
             id: "d3-n3",
             time: "11:30 – 12:30",
             duration: "約 45 分鐘",
-            title: "使用【阪急一日通票】從阪急嵐山站直達烏丸/京都河原町",
-            status: "confirmed",
-            bookingLabel: "✅ 阪急一日通全線免費",
+            title: "刷 ICOCA 離開嵐山前往四條河原町 / 祇園",
+            status: "walkin",
+            bookingLabel: "刷 ICOCA (¥240)",
             bookingUrl: "",
-            highlight: "認明渡月橋南側的「阪急嵐山站」！持套票附贈的阪急一日通進站，全程無需額外補票。",
-            transit: "從「阪急嵐山站」搭阪急嵐山線（1 站）至「桂站」，下車不用出站直接走對面月台轉乘「阪急京都本線（特急/準急）」，2 站到「烏丸站」(約12分) 或 3 站到終點「京都河原町站」(約18分)。",
+            highlight: "放棄阪急一日券改用 ICOCA 隨刷隨搭更划算！從「阪急嵐山站」搭阪急嵐山線至「桂站」，同站對面月台轉阪急京都線直達「京都河原町站」（全程約 18 分鐘，¥240）。",
+            transit: "過渡月橋步行至「阪急嵐山站」➔ 搭 1 站至「桂站」對面月台轉乘阪急京都線直達終點「京都河原町站」。",
             mapQuery: "Hankyu Arashiyama Station"
           },
           {
             id: "d3-n4",
             time: "12:30 – 14:15",
             duration: "約 1 小時 45 分",
-            title: "午餐：四條河原町 / 花見小路周邊享用湯豆腐或京料理",
+            title: "午餐：四條河原町或花見小路周邊享用湯豆腐或京料理",
             status: "recommended",
             bookingLabel: "建議提前網上訂位",
-            bookingUrl: "https://tabelog.com/kyoto/",
-            highlight: "從京都河原町站「3號或6號出口」（有電梯/手扶梯方便長輩）上來即達最熱鬧商圈。",
-            transit: "出站步行 5–8 分鐘即達祇園、先斗町與花見小路美食區。",
+            bookingUrl: "https://tousuiro.com/",
+            highlight: "於四條河原町或花見小路周邊享用湯豆腐或京料理。",
+            transit: "京都河原町站 3號或6號出口（設電梯/手扶梯）出站步行 5 分鐘即達。",
             mapQuery: "Kyoto-Kawaramachi Station"
           },
           {
             id: "d3-n5",
             time: "14:15 – 16:40",
             duration: "約 2 小時 25 分",
-            title: "第二站：東山老街散策（八坂神社、二年坂、三年坂、高台寺）",
+            title: "東山老街散策：八坂神社、二年坂、三年坂、高台寺",
             status: "walkin",
             bookingLabel: "自由散策",
             bookingUrl: "",
-            highlight: "沿石板古街漫步感受濃厚的京都秋日氛圍，沿途有許多抹茶甜品店可讓父母歇腳。",
+            highlight: "經由八坂神社、二年坂、三年坂漫步至高台寺周邊。",
             transit: "從祇園花見小路經八坂神社南樓門一路緩坡向上漫步至二年坂、三年坂。",
             mapQuery: "Sannenzaka Kyoto"
           },
@@ -1105,11 +1278,11 @@
             id: "d3-n6",
             time: "16:40 – 19:00",
             duration: "約 2 小時 20 分",
-            title: "第三站：清水寺（秋季夜間特別參拜 17:30–21:30）",
+            title: "清水寺（秋季夜間特別參拜）",
             status: "walkin",
             bookingLabel: "現場購票 (17:30夜間開門)",
             bookingUrl: "https://www.kiyomizudera.or.jp/",
-            highlight: "提前於 16:45 左右前往門口排隊等待 17:30 夜間開門入場，欣賞藍色雷射光束與滿山火紅夜楓包圍下的清水舞台！",
+            highlight: "提前於 16:45 左右前往門口排隊等待 17:30 夜間開門，欣賞藍色雷射光束與滿山夜楓包圍下的清水舞台。",
             transit: "從三年坂轉入清水坂步行約 8 分鐘抵達仁王門前廣場。",
             mapQuery: "Kiyomizu-dera Temple"
           },
@@ -1117,12 +1290,12 @@
             id: "d3-n7",
             time: "19:30+",
             duration: "晚餐與返程",
-            title: "晚餐與返程：步行至京阪「清水五條站」返回京都站",
+            title: "晚餐與返程：京阪清水五條站轉 JR 返回京都站",
             status: "walkin",
-            bookingLabel: "京阪轉JR (約12分, ¥320)",
+            bookingLabel: "刷 ICOCA (¥320)",
             bookingUrl: "",
-            highlight: "避開五條坂塞爆的公車，下坡步行至京阪電車站最順暢。",
-            transit: "沿五條坂步行下山約 15 分鐘至京阪「清水五條站」，搭京阪本線至「東福寺站」轉 JR 奈良線回「京都站」（車程約 12 分鐘，¥320）。",
+            highlight: "步行下山至京阪「清水五條站」（約 15 分鐘），搭乘京阪本線至「東福寺站」轉乘 JR 奈良線返回京都站（車程約 12 分鐘，¥320），於京都站享用晚餐後回酒店。",
+            transit: "沿五條坂步行下山 15 分鐘至「清水五條站」➔ 京阪本線至「東福寺站」➔ 轉 JR 奈良線至「京都站」。",
             mapQuery: "Kiyomizu-Gojo Station"
           }
         ],
@@ -1138,14 +1311,14 @@
             mapQuery: "Tousuiro Gion Kyoto"
           },
           {
-            name: "鯛匠 HANANA（嵐山・早午餐備選）",
-            category: "米其林推薦・真鯛魚茶泡飯",
-            bookingBadge: "🟢 官網提前網上預約",
-            bookingUrl: "https://taisho-hanana.com/",
-            cost: "¥2,900 (約 HK$150)",
-            mustOrder: "鯛茶漬け御膳（一魚三吃：生魚片/胡麻醬拌飯/煎茶泡飯）",
-            reason: "若想在嵐山吃早午餐，這家米其林推薦名店的秘製胡麻鯛魚茶泡飯絕對令人驚豔。",
-            mapQuery: "Taisho Hanana Arashiyama"
+            name: "嵯峨とうふ 稲 本店（嵐山天龍寺正對面）",
+            category: "嵐山名店・自家製腐皮與湯豆腐御膳",
+            bookingBadge: "🔵 現場候位（天龍寺正門出口即達）",
+            bookingUrl: "https://www.sagatofu-ine.com/",
+            cost: "¥2,200 (約 HK$114)",
+            mustOrder: "手桶汲み上げ湯葉御膳（現撈鮮腐皮套餐）、黑本蕨餅",
+            reason: "就在天龍寺正門斜對面，若上午逛完天龍寺想直接在嵐山吃早午餐，這間最順路。",
+            mapQuery: "Sagatofu Ine Arashiyama"
           },
           {
             name: "祇園 なん波（花見小路旁・京懷石午餐）",
@@ -1179,14 +1352,16 @@
           }
         ]
       },
+
+      // ==================== DAY 4: 11/23 (原定計劃 100% 保留) ====================
       {
         date: "11/23",
         weekday: "週一",
         dayLabel: "Day 4",
         theme: "京都東寺 ➡️ 大阪心齋橋 ｜ 1人 21:00 離境返港",
-        pax: 3, // 白天3人同行，餐費額度維持 HK$1,500
+        pax: 3,
         hotel: "DEL style 大阪心齋橋酒店 by 大和 ROYNET",
-        debugNotice: "💡 2026 實時核實：從「近鐵東寺站」出發搭近鐵直達大阪難波，完全不用拖行李去京都站迷宮！另配合 2026 日本新制離境海關退稅查驗，你搭 21:00 班機務必 16:00 出發、17:10 前抵達關西機場（預留近 4 小時最安心）。",
+        debugNotice: "💡 2026 實時核實：從「近鐵東寺站」出發搭近鐵直達大阪難波，完全免在京都站大廳拖行李奔波！你搭 21:00 返港航班務必 16:00 出發、17:10 前抵達關西機場（距離起飛近 4 小時，充裕應付新制退稅海關查驗）。",
         nodes: [
           {
             id: "d4-n1",
@@ -1196,8 +1371,8 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥1,070+¥190)",
             bookingUrl: "",
-            highlight: "從酒店步行 4 分鐘即達近鐵東寺站，免去在 JR 京都站拖大行李轉乘的辛苦！",
-            transit: "步行 4 分鐘至「近鐵東寺站」，搭「近鐵京都線（急行）」至「大和西大寺站」，同站轉乘「近鐵奈良線（快速急行）」直達「大阪難波站」（約 65 分鐘，¥1,070），再轉大阪地鐵御堂筋線（1 站 2 分鐘，¥190）至「心齋橋站」。",
+            highlight: "酒店退房後，步行 4 分鐘至「近鐵東寺站」，搭乘近鐵京都線（急行）至「大和西大寺站」，同站轉乘近鐵奈良線（快速急行）直達「大阪難波站」（全程約 65 分鐘，¥1,070），再轉乘大阪地下鐵御堂筋線（1 站，2 分鐘，¥190）至「心齋橋站」。",
+            transit: "近鐵東寺站 ➔ 大和西大寺站同站轉乘 ➔ 大阪難波站 ➔ 轉御堂筋線至心齋橋站。",
             mapQuery: "Toji Station Kyoto"
           },
           {
@@ -1208,8 +1383,8 @@
             status: "confirmed",
             bookingLabel: "大阪住宿已確認",
             bookingUrl: "",
-            highlight: "位於心齋橋核心商圈，距離心齋橋站步行僅 3–4 分鐘，逛街吃美食極度便利。",
-            transit: "從心齋橋站（北改札口/3號出口方向）步行約 3 分鐘即達酒店大廳。",
+            highlight: "步行 3 分鐘抵達 DEL style 大阪心齋橋酒店寄放所有行李。",
+            transit: "心齋橋站（北改札口/3號出口方向）步行 3 分鐘即達酒店。",
             mapQuery: "DEL style Osaka Shinsaibashi by Daiwa Roynet Hotel"
           },
           {
@@ -1220,8 +1395,8 @@
             status: "walkin",
             bookingLabel: "自由逛吃購物",
             bookingUrl: "",
-            highlight: "中午在黑門市場大啖神戶牛與海鮮，隨後在心齋橋筋、道頓堀固力果看板前拍全家合照。",
-            transit: "從心齋橋步行穿過道頓堀即達黑門市場（約 15 分鐘，或搭地鐵 1 站至日本橋站）。",
+            highlight: "步行或搭 1 站地鐵前往「黑門市場」享用神戶牛與海鮮，隨後在心齋橋、道頓堀漫步拍照。",
+            transit: "心齋橋步行穿過道頓堀約 15 分鐘至黑門市場（或地鐵 1 站至日本橋站）。",
             mapQuery: "Kuromon Ichiba Market Osaka"
           },
           {
@@ -1232,7 +1407,7 @@
             status: "walkin",
             bookingLabel: "酒店取行李",
             bookingUrl: "",
-            highlight: "檢查護照、退稅單與隨身物品，準備前往機場。",
+            highlight: "陪伴你返回心齋橋酒店取回個人行李。",
             transit: "步行返回 DEL style 大阪心齋橋酒店。",
             mapQuery: "DEL style Osaka Shinsaibashi by Daiwa Roynet Hotel"
           },
@@ -1244,31 +1419,31 @@
             status: "recommended",
             bookingLabel: "南海電鐵 Rapi:t (¥1,490)",
             bookingUrl: "https://www.howto-osaka.com/tc/ticket/",
-            highlight: "配合新制退稅查驗與賞楓季人潮，提前 3.5–4 小時（17:10 左右）抵達機場最穩妥！",
-            transit: "從酒店步行 3 分鐘至「心齋橋站」搭御堂筋線至「難波站」（2 分鐘），轉乘「南海電鐵特急 Rapi:t」（16:30 發車 ➡️ 17:08 抵達關西機場，車程 38 分鐘，¥1,490）。",
+            highlight: "從酒店步行 3 分鐘至「心齋橋站」搭御堂筋線至「難波站」（2 分鐘），轉乘南海電鐵特急 Rapi:t（如 16:30 發車 ➡️ 17:08 抵達關西機場，車程 38 分鐘，¥1,490）。17:10 抵達機場，距離 21:00 起飛有近 4 小時，非常充裕應付新制退稅海關查驗與安檢人潮。",
+            transit: "心齋橋站搭御堂筋線至難波站 ➔ 轉乘南海電鐵特急 Rapi:t 直達關西機場。",
             mapQuery: "Nankai Namba Station"
           },
           {
             id: "d4-n6",
             time: "18:00+",
             duration: "晚餐時間",
-            title: "父母晚餐：心齋橋商圈（大丸百貨/PARCO）或道頓堀",
+            title: "父母行程：心齋橋商圈或道頓堀享用晚餐並步行回酒店",
             status: "walkin",
             bookingLabel: "步行即達酒店",
             bookingUrl: "",
-            highlight: "餐廳選擇極多，用餐後父母只需步行幾分鐘即可回酒店舒適休息。",
-            transit: "心齋橋大丸百貨本館美食街或道頓堀周邊步行即達。",
+            highlight: "父母在心齋橋商圈（大丸百貨、PARCO）或道頓堀享用晚餐，隨後輕鬆步行回酒店休息。",
+            transit: "心齋橋大丸百貨或道頓堀步行幾分鐘即回酒店。",
             mapQuery: "Daimaru Shinsaibashi"
           },
           {
             id: "d4-n7",
             time: "21:00",
             duration: "平安返港",
-            title: "✈️ 你搭機平安返回香港（parents 續住大阪心齋橋）",
+            title: "✈️ 你搭機平安返港",
             status: "confirmed",
             bookingLabel: "21:00 起飛",
             bookingUrl: "",
-            highlight: "報平安後，父母準備展開接下來的大阪紅葉與天橋立之旅！",
+            highlight: "你搭機平安返港。",
             transit: "關西國際機場第一航廈登機口。",
             mapQuery: "Kansai International Airport Terminal 1"
           }
@@ -1326,14 +1501,16 @@
           }
         ]
       },
+
+      // ==================== DAY 5: 11/24 (原定計劃 100% 保留) ====================
       {
         date: "11/24",
         weekday: "週二",
         dayLabel: "Day 5",
-        theme: "父母大阪紅葉秘境（箕面大瀑布）➡️ 梅田高空日落夜景",
-        pax: 2, // 父母 2 人 * HK$500 = HK$1,000
+        theme: "父母大阪紅葉秘境 ➡️ 梅田高空日落夜景",
+        pax: 2,
         hotel: "DEL style 大阪心齋橋酒店 by 大和 ROYNET",
-        debugNotice: "💡 2026 實時核實：今日起人數為父母 2 人（每日餐飲預算自動調整為 HK$1,000）。箕面公園溪谷步道單程約 2.8 公里（路面平整微上坡），請提醒父母穿著最舒適的健走鞋，若走一半想休息可在半途「瀧安寺」賞楓折返。",
+        debugNotice: "💡 2026 實時核實：今日起為父母 2 人同行（每日餐費預算自動調整為 HK$1,000）。箕面公園溪谷步道平緩（單程約 2.8 公里），沿途記得品嚐當地名物現炸「紅葉天婦羅」。",
         nodes: [
           {
             id: "d5-n1",
@@ -1343,31 +1520,31 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥240+¥280)",
             bookingUrl: "",
-            highlight: "從繁華市區僅需約 35 分鐘車程就能抵達大阪第一賞楓名勝。",
-            transit: "從「心齋橋站」搭大阪地鐵御堂筋線至「梅田站」（6 分鐘，¥240），步行至阪急「大阪梅田站」，轉乘「阪急寶塚線」至「石橋阪大前站」，同站換乘「阪急箕面線」直達終點「箕面站」（車程約 25 分鐘，¥280）。",
+            highlight: "從「心齋橋站」搭乘大阪地下鐵御堂筋線至「梅田站」（車程 6 分鐘，¥240），步行至阪急「大阪梅田站」，轉乘阪急寶塚線至「石橋阪大前站」，同站換乘阪急箕面線直達「箕面站」（車程約 25 分鐘，¥280）。",
+            transit: "心齋橋站 ➔ 梅田站 ➔ 阪急大阪梅田站搭寶塚線至石橋阪大前 ➔ 轉箕面線至箕面站。",
             mapQuery: "Minoo Station Osaka"
           },
           {
             id: "d5-n2",
             time: "10:00 – 13:15",
             duration: "約 3 小時 15 分",
-            title: "第一站：箕面公園（箕面大瀑布 ＆ 炸紅葉天婦羅）",
+            title: "箕面公園（箕面大瀑布 ＆ 紅葉天婦羅）",
             status: "walkin",
             bookingLabel: "免費自然景區",
             bookingUrl: "https://www.mino-park.jp/",
-            highlight: "沿平緩溪谷步道健行欣賞飛瀑與滿山紅葉（單程約 2.8km），沿途必買當地限定的酥脆「紅葉天婦羅」小點心。",
-            transit: "出箕面站沿瀧道（Takimichi）溪谷步道直行即達大瀑布。",
+            highlight: "沿著平緩溪谷步道健行欣賞飛瀑紅葉（單程約 2.8 公里），沿途可品嚐當地特色的炸楓葉「紅葉天婦羅」。",
+            transit: "出箕面站沿瀧道溪谷步道直行即達大瀑布。",
             mapQuery: "Minoh Falls Osaka"
           },
           {
             id: "d5-n3",
             time: "13:15 – 14:30",
             duration: "約 1 小時 15 分",
-            title: "午餐：箕面站前溫泉街享用日式定食或烏龍麵",
+            title: "午餐：於箕面站前溫泉街享用日式定食或烏龍麵",
             status: "walkin",
             bookingLabel: "車站周邊食堂",
             bookingUrl: "",
-            highlight: "健行結束後在車站前老街吃碗熱騰騰的烏龍麵或山菜定食補充體力。",
+            highlight: "於箕面站前溫泉街享用日式定食或烏龍麵。",
             transit: "步行返回阪急箕面站前商店街。",
             mapQuery: "Minoo Station Osaka"
           },
@@ -1379,20 +1556,20 @@
             status: "walkin",
             bookingLabel: "刷 ICOCA (¥280)",
             bookingUrl: "",
-            highlight: "返回梅田商圈，可先在阪急百貨稍作休息逛街。",
-            transit: "箕面站搭阪急箕面線至「石橋阪大前站」轉寶塚線直達「大阪梅田站」。",
+            highlight: "搭乘阪急電車返回「大阪梅田站」。",
+            transit: "箕面站搭阪急箕面線至石橋阪大前站轉寶塚線直達大阪梅田站。",
             mapQuery: "Osaka-Umeda Station"
           },
           {
             id: "d5-n5",
             time: "16:00 – 18:00",
             duration: "約 2 小時",
-            title: "第二站：梅田藍天大廈 空中庭園展望台（日落 Magic Hour）",
+            title: "梅田藍天大廈 空中庭園展望台（日落與大阪港灣夜景）",
             status: "recommended",
             bookingLabel: "建議預購電子票",
             bookingUrl: "https://www.skybldg.co.jp/tw/",
-            highlight: "16:30 前登頂，可同時拍到「大阪灣夕陽日落」與「繁華百萬夜景」交替的夢幻時刻。",
-            transit: "從 JR 大阪站中央北口步行穿過 Grand Front Osaka 地下人行通道約 9 分鐘。",
+            highlight: "16:30 前登頂，欣賞夕陽日落與大阪港灣夜景。",
+            transit: "從 JR 大阪站中央北口步行穿過 Grand Front Osaka 地下通道約 9 分鐘。",
             mapQuery: "Umeda Sky Building"
           },
           {
@@ -1403,8 +1580,8 @@
             status: "recommended",
             bookingLabel: "建議提前預約",
             bookingUrl: "https://www.hotpepper.jp/",
-            highlight: "享用豐盛燒肉慰勞健行後的雙腿，飯後搭地鐵 6 分鐘直達心齋橋回酒店。",
-            transit: "從地鐵「梅田站」搭御堂筋線（往天王寺/中百舌鳥方向）3 站即達「心齋橋站」（6 分鐘，¥240）。",
+            highlight: "於梅田 Grand Front Osaka 或阪急百貨享用國產牛燒肉晚餐，飯後搭乘御堂筋線（6 分鐘）直達心齋橋回酒店。",
+            transit: "地鐵梅田站搭御堂筋線（6 分鐘，¥240）直達心齋橋站。",
             mapQuery: "Grand Front Osaka"
           }
         ],
@@ -1461,36 +1638,38 @@
           }
         ]
       },
+
+      // ==================== DAY 6: 11/25 (原定計劃 100% 保留) ====================
       {
         date: "11/25",
         weekday: "週三",
         dayLabel: "Day 6",
-        theme: "父母【海之京都】天橋立 ＆ 伊根舟屋中文一日團",
+        theme: "父母【海之京都】天橋立 ＆ 伊根舟屋一日團",
         pax: 2,
         hotel: "DEL style 大阪心齋橋酒店 by 大和 ROYNET",
-        debugNotice: "💡 2026 實時核實：預訂一日團時請務必選擇「難波 / 心齋橋（如蟹道樂道頓堀東店前或日本橋站出口）」上下車！父母早上從酒店步行僅 8–10 分鐘即可報到，免早起轉車去梅田，團費已包全套纜車與伊根遊船票。",
+        debugNotice: "💡 2026 實時核實：預訂一日遊巴士團時，請務必選擇「難波 / 心齋橋（如蟹道樂道頓堀東店前或日本橋站出口）」上下車！父母早上從酒店步行僅 8–10 分鐘即可抵達集合點，免早起搭車去梅田。",
         nodes: [
           {
             id: "d6-n1",
             time: "07:15 – 07:30",
             duration: "預留 15 分鐘",
-            title: "酒店步行至「難波 / 心齋橋」一日遊集合點報到",
+            title: "於難波/心齋橋指定集合點報到上車",
             status: "required",
-            bookingLabel: "🔴 提前預訂難波/心齋橋集合團",
+            bookingLabel: "🔴 選難波/心齋橋集合團",
             bookingUrl: "https://www.klook.com/zh-HK/",
-            highlight: "集合點通常設於「蟹道樂道頓堀東店前」或「日本橋站 2 號出口」，從酒店步行 8–10 分鐘即達。",
-            transit: "沿心齋橋筋向南步行穿過道頓堀橋即達集合點（建議前一天先確認憑證上的集合地圖）。",
+            highlight: "父母早上從酒店步行約 8–10 分鐘即可抵達難波/心齋橋指定集合點報到上車，完全不用早起搭車去梅田。",
+            transit: "沿心齋橋筋向南步行穿過道頓堀橋即達集合點。",
             mapQuery: "Kani Doraku Dotonbori East"
           },
           {
             id: "d6-n2",
             time: "07:30 – 10:30",
             duration: "車程約 3 小時",
-            title: "搭乘中文巴士一日團專車直達「海之京都」",
+            title: "搭乘專屬旅遊巴士直達海之京都",
             status: "confirmed",
             bookingLabel: "中文導遊隨車照顧",
             bookingUrl: "",
-            highlight: "全程專車接送免轉車，父母可在舒適旅遊巴上補眠休息（中途會停靠高速公路休息站）。",
+            highlight: "搭乘專屬旅遊巴士直達海之京都。",
             transit: "乘坐專屬觀光巴士前往京都府北部丹後半島。",
             mapQuery: "Amanohashidate"
           },
@@ -1498,11 +1677,11 @@
             id: "d6-n3",
             time: "10:30 – 12:15",
             duration: "約 1 小時 45 分",
-            title: "第一站：天橋立（傘松公園 / 飛龍觀展望台）",
+            title: "天橋立（傘松公園 / 飛龍觀）",
             status: "confirmed",
             bookingLabel: "團費已含纜車票",
             bookingUrl: "",
-            highlight: "導遊統一領票搭乘箱型纜車或單人吊椅登頂，體驗傳統「從胯下倒著看」沙洲化作飛龍在天的日本三景絕景。",
+            highlight: "搭纜車登上展望台，體驗傳統「股之窺眺」絕景。",
             transit: "巴士停靠天橋立停車場，跟隨導遊步行至纜車站。",
             mapQuery: "Amanohashidate Kasamatsu Park"
           },
@@ -1510,11 +1689,11 @@
             id: "d6-n4",
             time: "12:15 – 13:00",
             duration: "約 45 分鐘",
-            title: "午餐：享用當地特色海鮮蛤蜊飯定食",
+            title: "午餐：享用當地海鮮定食",
             status: "walkin",
             bookingLabel: "天橋立周邊餐廳",
             bookingUrl: "",
-            highlight: "品嚐丹後半島新鮮海產與名物蛤蜊蓋飯。",
+            highlight: "享用當地海鮮定食。",
             transit: "天橋立松林步道旁或智恩寺門前街餐廳。",
             mapQuery: "Hashidate Chaya"
           },
@@ -1522,23 +1701,23 @@
             id: "d6-n5",
             time: "13:30 – 15:00",
             duration: "約 1 小時 30 分",
-            title: "第二站：伊根舟屋（日式威尼斯秘境 ＆ 遊船餵海鷗）",
+            title: "伊根舟屋（伊根灣觀光船餵海鷗 ＆ 舟屋老街散步）",
             status: "confirmed",
-            bookingLabel: "團費已含伊根灣遊船票",
+            bookingLabel: "團費已含遊船票",
             bookingUrl: "",
-            highlight: "搭乘伊根灣觀光船從海上欣賞 230 多棟臨水木造舟屋，可在船上買蝦條餵海鷗與老鷹，隨後在舟屋老街散步。",
-            transit: "搭乘一日團巴士從天橋立前往伊根灣遊覽船乘船處（車程約 30 分鐘）。",
+            highlight: "搭乘伊根灣觀光船欣賞水上舟屋並餵海鷗，隨後於舟屋老街散步。",
+            transit: "搭乘一日團巴士前往伊根灣遊覽船乘船處。",
             mapQuery: "Ine Bay Sightseeing Boat"
           },
           {
             id: "d6-n6",
             time: "15:00 – 18:30",
             duration: "車程約 3.5 小時",
-            title: "搭乘觀光巴士返回難波 / 心齋橋解散",
+            title: "搭乘巴士返回難波/心齋橋解散",
             status: "confirmed",
             bookingLabel: "原地上車點下車",
             bookingUrl: "",
-            highlight: "於難波/心齋橋解散，直接銜接道頓堀晚餐，省去舟車勞頓。",
+            highlight: "搭乘巴士返回難波/心齋橋解散。",
             transit: "下車後步行即達道頓堀美食區。",
             mapQuery: "Dotonbori Osaka"
           },
@@ -1546,11 +1725,11 @@
             id: "d6-n7",
             time: "19:00+",
             duration: "慶功晚餐",
-            title: "畢業大餐：道頓堀享用蟹道樂或高級和牛燒肉",
+            title: "晚餐：在道頓堀享用蟹道樂或大阪燒，步行回酒店休息",
             status: "required",
             bookingLabel: "🔴 建議提前官網預約",
             bookingUrl: "https://douraku.co.jp/kansai/",
-            highlight: "慶祝父母賞楓之旅圓滿成功！飯後輕鬆步行回心齋橋酒店。",
+            highlight: "在道頓堀享用蟹道樂或大阪燒，步行回酒店休息。",
             transit: "道頓堀步行約 8 分鐘返回 DEL style 大阪心齋橋酒店。",
             mapQuery: "Kani Doraku Dotonbori Main Branch"
           }
@@ -1559,7 +1738,7 @@
           {
             name: "蟹道樂（かに道楽 道頓堀本店 / 中店 / 東店）",
             category: "大阪地標・松葉蟹豪華會席",
-            bookingBadge: "🔴 必須提前 1 個月繁中官網預約",
+            bookingBadge: "🔴 必須提前繁中官網預約",
             bookingUrl: "https://douraku.co.jp/kansai/",
             cost: "¥6,500 (約 HK$335)",
             mustOrder: "松葉蟹刺身、炭烤蟹腳、蟹肉釜飯、蟹肉天婦羅",
@@ -1608,6 +1787,8 @@
           }
         ]
       },
+
+      // ==================== DAY 7: 11/26 (原定計劃 100% 保留) ====================
       {
         date: "11/26",
         weekday: "週四",
@@ -1615,7 +1796,7 @@
         theme: "父母最後採買 ➡️ 下午離境返港 (15:00 班機)",
         pax: 2,
         hotel: "快樂返港（心齋橋 ➔ 關西機場）",
-        debugNotice: "💡 2026 實時核實：父母搭乘 15:00 返港航班，建議搭 11:30 或 12:00 的南海電鐵特急 Rapi:t（12:10–12:40 抵達機場），預留約 2.5 小時辦理退稅海關查驗與託運。因採買後行李較重，建議直接從酒店門口搭計程車 5 分鐘（約 ¥1,000）直達南海難波站電梯旁最省力！",
+        debugNotice: "💡 2026 實時核實：父母搭乘 15:00 返港航班，建議搭 11:30 或 12:00 的南海電鐵特急 Rapi:t（12:10–12:40 抵達機場），預留約 2.5 小時辦理退稅海關查驗與託運。因採買後行李較重，建議直接從酒店門口搭計程車 5 分鐘（約 ¥1,000）直達南海難波站電梯旁！",
         nodes: [
           {
             id: "d7-n1",
@@ -1625,7 +1806,7 @@
             status: "walkin",
             bookingLabel: "退房前最後補貨",
             bookingUrl: "",
-            highlight: "大丸百貨 10:00 開門，可採買高級版 Pocky (Bâton d'or) 或藥妝，隨後回酒店取行李。",
+            highlight: "在心齋橋筋商店街或大丸百貨做最後伴手禮採買，隨後回酒店取行李並辦理退房。",
             transit: "酒店出門即為心齋橋商圈，步行 3 分鐘達大丸百貨。",
             mapQuery: "Shinsaibashi-suji Shopping Street"
           },
@@ -1637,19 +1818,19 @@
             status: "recommended",
             bookingLabel: "Rapi:t 11:30 或 12:00 發車",
             bookingUrl: "https://www.howto-osaka.com/tc/ticket/",
-            highlight: "省力貼士：建議直接從酒店門口搭計程車前往「南海難波站」（車程 5 分鐘，約 ¥1,000），直達南海電鐵閘口電梯旁，無需在地下街搬行李找電梯！",
-            transit: "或步行 3 分鐘至「心齋橋站」搭御堂筋線至「難波站」（2 分鐘），轉乘「南海電鐵特急 Rapi:t」（11:30 或 12:00 發車，車程 38 分鐘，¥1,490）。",
+            highlight: "從酒店步行 3 分鐘至「心齋橋站」搭乘御堂筋線至「難波站」（2 分鐘），轉乘南海電鐵特急 Rapi:t（11:30 或 12:00 發車，車程 38 分鐘，¥1,490）。省力貼士：因父母帶著採買後的大件行李，也可直接從酒店門口搭乘計程車前往「南海難波站」（車程約 5 分鐘，約 ¥1,000），直達南海電鐵閘口電梯旁，無須在地下街找電梯。",
+            transit: "酒店門口計程車 5 分鐘（約 ¥1,000）或地鐵御堂筋線 1 站至難波轉乘南海電鐵特急 Rapi:t。",
             mapQuery: "Nankai Namba Station"
           },
           {
             id: "d7-n3",
             time: "12:10 – 12:40",
             duration: "預留 2.5 小時",
-            title: "抵達關西國際機場，辦理海關退稅查驗與登機報到",
+            title: "抵達關西國際機場，辦理海關退稅查驗與出境手續",
             status: "walkin",
             bookingLabel: "距離起飛約 2.5 小時",
             bookingUrl: "",
-            highlight: "完成行李託運與海關查驗後，可在免稅店購買 Royce 生巧克力、白色戀人或享用午餐。",
+            highlight: "抵達關西國際機場（距離 15:00 起飛約 2.5 小時），預留時間辦理海關退稅查驗、行李託運與出境手續。",
             transit: "南海關西機場站出閘後經空橋步行至第一航廈 4 樓國際線出發大廳。",
             mapQuery: "Kansai International Airport Terminal 1"
           },
@@ -1657,11 +1838,11 @@
             id: "d7-n4",
             time: "15:00",
             duration: "圓滿返港",
-            title: "✈️ 父母搭機平安返回香港",
+            title: "✈️ 父母搭機平安返港",
             status: "confirmed",
             bookingLabel: "15:00 起飛",
             bookingUrl: "",
-            highlight: "2026 關西紅葉親子之旅圓滿畫下句點！",
+            highlight: "父母搭機平安返港。",
             transit: "關西國際機場第一航廈登機門。",
             mapQuery: "Kansai International Airport"
           }
@@ -1722,25 +1903,32 @@
     ];
 
     // =========================================================================
-    // 2. 狀態管理與 localStorage 自動儲存 (Versioned: kansai_maple_trip_2026_v3)
+    // 2. 狀態管理與 localStorage 自動儲存 (Version v4)
     // =========================================================================
     let state = {
-      version: "v3",
+      version: "v4",
       selectedDayIdx: 0,
       activeTab: "itinerary",
-      ratePer100Jpy: 5.15, // 100 JPY = 5.15 HKD (1 HKD ≈ 19.4 JPY)
-      days: JSON.parse(JSON.stringify(EXACT_ITINERARY_DAYS)),
+      phraseFilter: "all",
+      ratePer100Jpy: 5.15, // 100 JPY = 5.15 HKD
+      initialJpyCash: 546450, // 初始持有日圓現金 ¥546,450
+      days: JSON.parse(JSON.stringify(FINAL_ITINERARY_DAYS)),
       expenses: [],
       settlementLogs: []
     };
+
+    let currentFullscreenJpText = "";
 
     function loadStateFromStorage() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (parsed && parsed.version === "v3" && Array.isArray(parsed.days)) {
-            state = parsed;
+          if (parsed && parsed.version === "v4" && Array.isArray(parsed.days)) {
+            state = {
+              ...state,
+              ...parsed
+            };
           }
         }
         updateSaveIndicator(true);
@@ -1753,7 +1941,7 @@
 
     function persistState() {
       try {
-        state.version = "v3";
+        state.version = "v4";
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         updateSaveIndicator(true);
       } catch (err) {
@@ -1767,24 +1955,109 @@
       const text = document.getElementById("saveIndicatorText");
       if (!badge || !text) return;
       if (success) {
-        badge.className = "text-[10px] font-bold px-2 py-1 rounded-full bg-[#E8F3EC] text-[#3E6B4C] border border-[#C3DFCC] flex items-center gap-1";
-        text.textContent = "已儲存";
+        badge.className = "text-[10px] font-bold px-2 py-1 rounded-full bg-[#E8F3EC] text-[#3D6B4C] border border-[#C3DFCC] flex items-center gap-1";
+        text.textContent = "已自動儲存";
       } else {
         badge.className = "text-[10px] font-bold px-2 py-1 rounded-full bg-red-100 text-red-700 border border-red-300 flex items-center gap-1";
-        text.textContent = "⚠️ 儲存失敗";
+        text.textContent = "⚠️ 儲存異常";
       }
     }
 
     function resetScheduleToDefault() {
-      state.days = JSON.parse(JSON.stringify(EXACT_ITINERARY_DAYS));
+      state.days = JSON.parse(JSON.stringify(FINAL_ITINERARY_DAYS));
       persistState();
       renderAll();
       closeModal("resetConfirmModal");
-      showToast("✅ 已還原為最新精準版預設行程！");
+      showToast("✅ 已還原為最新最終版預設行程！");
     }
 
     // =========================================================================
-    // 3. UI 渲染引擎
+    // 3. 頁面切換與自動回到頂部
+    // =========================================================================
+    function scrollToPageTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function selectDay(idx) {
+      state.selectedDayIdx = idx;
+      persistState();
+      renderAll();
+      scrollToPageTop();
+    }
+
+    function switchBottomTab(tab) {
+      state.activeTab = tab;
+      ["itinerary", "transit", "accounting", "guide"].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`bnav-${t}`);
+        if (t === tab) {
+          view.classList.remove("hidden");
+          btn.classList.add("text-[#B83B2A]", "bg-[#FDECEA]/70", "font-black");
+          btn.classList.remove("text-[#786355]", "font-bold");
+        } else {
+          view.classList.add("hidden");
+          btn.classList.remove("text-[#B83B2A]", "bg-[#FDECEA]/70", "font-black");
+          btn.classList.add("text-[#786355]", "font-bold");
+        }
+      });
+      persistState();
+      scrollToPageTop();
+    }
+
+    // =========================================================================
+    // 4. Open-Meteo 實時氣象查詢 (京都 & 大阪)
+    // =========================================================================
+    function getWeatherEmoji(code) {
+      if (code === 0) return { icon: "☀️", text: "晴朗無雲" };
+      if (code <= 3) return { icon: "⛅", text: "多雲時晴" };
+      if (code <= 48) return { icon: "🌫️", text: "薄霧微涼" };
+      if (code <= 67) return { icon: "🌧️", text: "有陣雨" };
+      if (code <= 77) return { icon: "❄️", text: "寒冷降雪" };
+      return { icon: "🌦️", text: "局部陣雨" };
+    }
+
+    async function fetchLiveWeather(manualToast = false) {
+      const grid = document.getElementById("weatherCardsGrid");
+      try {
+        const [kyotoRes, osakaRes] = await Promise.all([
+          fetch("https://api.open-meteo.com/v1/forecast?latitude=35.0116&longitude=135.7681&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=1"),
+          fetch("https://api.open-meteo.com/v1/forecast?latitude=34.6937&longitude=135.5023&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=1")
+        ]);
+        const kyoto = await kyotoRes.json();
+        const osaka = await osakaRes.json();
+
+        const renderCityCard = (cityName, data) => {
+          const cur = data.current;
+          const daily = data.daily;
+          const w = getWeatherEmoji(cur.weather_code);
+          return `
+            <div class="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E6D8C6] space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="font-black text-xs text-[#4A3525]">${cityName}</span>
+                <span class="text-lg">${w.icon}</span>
+              </div>
+              <div class="text-xl font-black text-[#B83B2A]">${cur.temperature_2m.toFixed(1)}°C</div>
+              <div class="text-[10px] font-bold text-[#786355]">${w.text} · 體感 ${cur.apparent_temperature.toFixed(1)}°C</div>
+              <div class="text-[10px] text-[#3D6B4C] font-bold pt-0.5 border-t border-[#E6D8C6]">
+                今日 ${daily.temperature_2m_min[0].toFixed(0)}°~${daily.temperature_2m_max[0].toFixed(0)}°C · 降雨 ${daily.precipitation_probability_max[0]}%
+              </div>
+            </div>
+          `;
+        };
+
+        grid.innerHTML = renderCityCard("🍁 京都市區", kyoto) + renderCityCard("🏯 大阪市區", osaka);
+        if (manualToast) showToast("⛅ 已更新京都與大阪即時氣象！");
+      } catch (e) {
+        grid.innerHTML = `
+          <div class="col-span-2 p-3 rounded-2xl bg-[#FAF6F0] border border-[#E6D8C6] text-xs text-[#786355]">
+            ⚠️ 目前處於離線或訊號較弱狀態，無法連線即時氣象（參考氣溫：11月下旬京都/大阪白天約 14°C、夜間約 7°C）。
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // 5. 核心介面渲染 (日期條、餐費進度條、行程、美食、交通、日文大字卡)
     // =========================================================================
     function renderAll() {
       renderDaySelector();
@@ -1792,11 +2065,11 @@
       renderTimelineAndFoods();
       renderTransitTab();
       renderAccountingSection();
-      renderModalsData();
+      renderPhraseCards();
+      renderMasterBookings();
       syncAccountingDefaults();
     }
 
-    // 渲染 11/20 - 11/26 日期按鈕
     function renderDaySelector() {
       const bar = document.getElementById("daySelectorBar");
       bar.innerHTML = state.days.map((d, i) => {
@@ -1805,22 +2078,20 @@
           <button onclick="selectDay(${i})"
             class="shrink-0 px-3 py-1.5 rounded-2xl border text-left transition active:scale-95 ${
               active
-                ? "bg-[#B83A2D] text-white border-[#B83A2D] shadow-sm"
-                : "bg-white text-[#4A2C2A] border-[#E6D8C8] hover:border-[#B83A2D]"
+                ? "bg-[#B83B2A] text-white border-[#B83B2A] shadow-sm"
+                : "bg-white text-[#4A3525] border-[#E6D8C6] hover:border-[#B83B2A]"
             }">
             <div class="text-xs font-black leading-tight">${d.date} <span class="text-[10px] font-normal opacity-90">${d.weekday}</span></div>
-            <div class="text-[10px] mt-0.5 ${active ? "text-red-100" : "text-[#75625A]"}">${d.dayLabel} · ${d.pax}人</div>
+            <div class="text-[10px] mt-0.5 ${active ? "text-red-100" : "text-[#786355]"}">${d.dayLabel} · ${d.pax}人</div>
           </button>
         `;
       }).join("");
     }
 
-    // 渲染當日主題、住宿與餐飲預算進度條
     function renderDayHeaderCard() {
       const d = state.days[state.selectedDayIdx];
-      const mealBudgetHkd = d.pax * 500; // 每人每日 HK$500
+      const mealBudgetHkd = d.pax * 500;
 
-      // 統計當日「餐飲美食」類總花費 (HKD)
       const spentFoodHkd = state.expenses
         .filter(e => e.dayDate === d.date && e.category === "food")
         .reduce((acc, cur) => acc + cur.amountHkd, 0);
@@ -1833,36 +2104,36 @@
         <div class="flex items-start justify-between gap-2">
           <div>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="px-2 py-0.5 rounded-md bg-[#B83A2D]/10 text-[#B83A2D] text-[11px] font-black">${d.date} (${d.weekday}) · ${d.dayLabel}</span>
-              <span class="text-[11px] font-bold text-[#3E6B4C]">👨‍👩‍👦 ${d.pax} 人同行</span>
+              <span class="px-2 py-0.5 rounded-md bg-[#B83B2A]/10 text-[#B83B2A] text-[11px] font-black">${d.date} (${d.weekday}) · ${d.dayLabel}</span>
+              <span class="text-[11px] font-bold text-[#3D6B4C]">👨‍👩‍👦 ${d.pax} 人同行</span>
             </div>
-            <h2 class="font-maru font-black text-base text-[#4A2C2A] mt-1 leading-snug">${d.theme}</h2>
+            <h2 class="font-maru font-black text-base text-[#4A3525] mt-1 leading-snug">${d.theme}</h2>
           </div>
         </div>
 
-        <div class="mt-2 text-[11px] text-[#75625A] flex items-center gap-1">
-          <span>🏨 住宿：</span><span class="font-bold text-[#4A2C2A]">${d.hotel}</span>
+        <div class="mt-2 text-[11px] text-[#786355] flex items-center gap-1">
+          <span>🏨 住宿：</span><span class="font-bold text-[#4A3525]">${d.hotel}</span>
         </div>
 
         <!-- 每日餐費預算進度條 (每人 HK$500/日，不含手信) -->
-        <div class="mt-3 p-2.5 rounded-2xl bg-[#FAF5EE] border border-[#E6D8C8]">
+        <div class="mt-3 p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#E6D8C6]">
           <div class="flex items-center justify-between text-xs mb-1">
-            <span class="font-bold text-[#4A2C2A]">🍱 本日餐費津貼 (HK$500 × ${d.pax}人)</span>
-            <span class="font-black ${overBudget ? "text-red-600" : "text-[#3E6B4C]"}">
+            <span class="font-bold text-[#4A3525]">🍱 本日餐費津貼 (HK$500 × ${d.pax}人)</span>
+            <span class="font-black ${overBudget ? "text-red-600" : "text-[#3D6B4C]"}">
               ${overBudget ? `超支 HK$${Math.abs(remainHkd).toFixed(0)}` : `剩餘 HK$${remainHkd.toFixed(0)}`}
             </span>
           </div>
-          <div class="w-full h-2 bg-[#E6D8C8] rounded-full overflow-hidden">
-            <div class="h-full rounded-full transition-all duration-300 ${overBudget ? "bg-red-600" : "bg-gradient-to-r from-[#3E6B4C] to-[#E8A838]"}"
+          <div class="w-full h-2 bg-[#E6D8C6] rounded-full overflow-hidden">
+            <div class="h-full rounded-full transition-all duration-300 ${overBudget ? "bg-red-600" : "bg-gradient-to-r from-[#3D6B4C] to-[#E2A03F]"}"
               style="width: ${pct}%"></div>
           </div>
-          <div class="flex justify-between text-[10px] text-[#75625A] mt-1">
+          <div class="flex justify-between text-[10px] text-[#786355] mt-1">
             <span>已計餐費：HK$${spentFoodHkd.toFixed(0)} (手信不計入)</span>
             <span>上限：HK$${mealBudgetHkd} (約 ¥${Math.round((mealBudgetHkd / state.ratePer100Jpy) * 100).toLocaleString()})</span>
           </div>
         </div>
 
-        <!-- 2026 智能除錯與實時核實提醒 -->
+        <!-- 2026 智能除錯提醒 -->
         <div class="mt-2.5 p-2.5 rounded-xl bg-[#FFF6E6] border border-[#F0D6A8] text-[11px] text-[#6B461E] leading-relaxed">
           ${d.debugNotice}
         </div>
@@ -1874,7 +2145,7 @@
         return `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#E8F3EC] text-[#2D613E] border border-[#BCE0C8]">${label || "✅ 已預約確認"}</span>`;
       }
       if (status === "required") {
-        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#FDECEA] text-[#B83A2D] border border-[#F5C2BD]">${label || "🔴 必須提前預約"}</span>`;
+        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#FDECEA] text-[#B83B2A] border border-[#F5C2BD]">${label || "🔴 必須提前預約"}</span>`;
       }
       if (status === "recommended") {
         return `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#FFF7E6] text-[#B56912] border border-[#F3D9A4]">${label || "🟡 建議提前預訂"}</span>`;
@@ -1882,7 +2153,6 @@
       return `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#EEF5FA] text-[#2F5D8A] border border-[#C2DBF0]">${label || "🔵 現場購票/免預約"}</span>`;
     }
 
-    // 渲染當日時間軸 + 5 大在地美食
     function renderTimelineAndFoods() {
       const d = state.days[state.selectedDayIdx];
       document.getElementById("timelineSectionTitle").textContent = `${d.date} (${d.weekday}) 精準時間軸`;
@@ -1899,8 +2169,7 @@
         return `
           <div class="relative pl-9">
             ${!isLast ? '<div class="timeline-connector"></div>' : ""}
-            <!-- 時間軸楓葉節點 -->
-            <div class="absolute left-0 top-1.5 w-9 h-9 rounded-2xl bg-[#FFFDF9] border-2 border-[#B83A2D] flex items-center justify-center text-sm shadow-sm z-10">
+            <div class="absolute left-0 top-1.5 w-9 h-9 rounded-2xl bg-[#FFFDF9] border-2 border-[#B83B2A] flex items-center justify-center text-sm shadow-sm z-10">
               🍁
             </div>
 
@@ -1908,42 +2177,40 @@
               <div class="flex items-start justify-between gap-2">
                 <div>
                   <div class="flex items-center gap-1.5 flex-wrap">
-                    <span class="text-xs font-black text-[#B83A2D] bg-[#FAF5EE] px-2 py-0.5 rounded-lg border border-[#E6D8C8]">⏰ ${node.time}</span>
-                    <span class="text-[10px] font-bold text-[#75625A]">(${node.duration})</span>
+                    <span class="text-xs font-black text-[#B83B2A] bg-[#FAF6F0] px-2 py-0.5 rounded-lg border border-[#E6D8C6]">⏰ ${node.time}</span>
+                    <span class="text-[10px] font-bold text-[#786355]">(${node.duration})</span>
                     ${getStatusBadge(node.status, node.bookingLabel)}
                   </div>
-                  <h3 class="font-maru font-black text-sm text-[#4A2C2A] mt-1.5 leading-snug">${node.title}</h3>
+                  <h3 class="font-maru font-black text-sm text-[#4A3525] mt-1.5 leading-snug">${node.title}</h3>
                 </div>
                 <div class="flex items-center gap-1 shrink-0">
-                  <button onclick="openItineraryEditor('${node.id}')" class="p-1.5 rounded-lg bg-[#FAF5EE] text-xs" title="編輯">✏️</button>
-                  <button onclick="deleteNode('${node.id}')" class="p-1.5 rounded-lg bg-[#FAF5EE] text-xs" title="刪除">🗑️</button>
+                  <button onclick="openItineraryEditor('${node.id}')" class="p-1.5 rounded-lg bg-[#FAF6F0] text-xs" title="編輯">✏️</button>
+                  <button onclick="deleteNode('${node.id}')" class="p-1.5 rounded-lg bg-[#FAF6F0] text-xs" title="刪除">🗑️</button>
                 </div>
               </div>
 
               <p class="text-xs text-[#59463E] leading-relaxed">${node.highlight}</p>
 
-              <!-- 精細交通提示條 -->
               ${node.transit ? `
                 <div class="p-2.5 rounded-xl bg-[#F2F7F4] border border-[#CFE2D6] text-[11px] text-[#284B35] leading-relaxed">
                   <span class="font-bold">🚃 交通與出口：</span>${node.transit}
                 </div>
               ` : ""}
 
-              <!-- 操作按鈕 -->
               <div class="flex flex-wrap gap-1.5 pt-0.5">
                 ${node.bookingUrl ? `
                   <a href="${node.bookingUrl}" target="_blank" rel="noopener noreferrer"
-                    class="px-2.5 py-1.5 rounded-xl bg-[#B83A2D] text-white text-[11px] font-bold flex items-center gap-1 shadow-sm active:scale-95">
+                    class="px-2.5 py-1.5 rounded-xl bg-[#B83B2A] text-white text-[11px] font-bold flex items-center gap-1 shadow-sm active:scale-95">
                     <span>🎫</span><span>${node.bookingLabel || "網上預約/查詢"}</span>
                   </a>
                 ` : ""}
                 <a href="${mapUrl}" target="_blank" rel="noopener noreferrer"
-                  class="px-2.5 py-1.5 rounded-xl bg-[#3E6B4C] text-white text-[11px] font-bold flex items-center gap-1 shadow-sm active:scale-95">
+                  class="px-2.5 py-1.5 rounded-xl bg-[#3D6B4C] text-white text-[11px] font-bold flex items-center gap-1 shadow-sm active:scale-95">
                   <span>📍</span><span>Google Maps 地標</span>
                 </a>
                 ${dirUrl ? `
                   <a href="${dirUrl}" target="_blank" rel="noopener noreferrer"
-                    class="px-2.5 py-1.5 rounded-xl bg-[#FAF5EE] border border-[#DFCBB5] text-[#4A2C2A] text-[11px] font-bold flex items-center gap-1 active:scale-95">
+                    class="px-2.5 py-1.5 rounded-xl bg-[#FAF6F0] border border-[#DFCBB5] text-[#4A3525] text-[11px] font-bold flex items-center gap-1 active:scale-95">
                     <span>🧭</span><span>從上一站路線</span>
                   </a>
                 ` : ""}
@@ -1953,7 +2220,6 @@
         `;
       }).join("");
 
-      // 渲染每日 5 間在地美食地圖
       const foodContainer = document.getElementById("dailyFoodContainer");
       foodContainer.innerHTML = d.foods.map((f, idx) => {
         const gmapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.mapQuery || f.name)}`;
@@ -1961,32 +2227,30 @@
           <div class="journal-card p-3.5 space-y-2">
             <div class="flex items-start justify-between gap-2">
               <div class="space-y-1">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="px-2 py-0.5 rounded-md bg-[#D96B27]/15 text-[#B54E12] text-[10px] font-black">在地精選 #${idx + 1} · ${f.category}</span>
-                </div>
-                <h4 class="font-maru font-black text-sm text-[#4A2C2A] leading-snug">${f.name}</h4>
+                <span class="px-2 py-0.5 rounded-md bg-[#D96B27]/15 text-[#B54E12] text-[10px] font-black">在地精選 #${idx + 1} · ${f.category}</span>
+                <h4 class="font-maru font-black text-sm text-[#4A3525] leading-snug">${f.name}</h4>
                 <div>${getStatusBadge("recommended", f.bookingBadge)}</div>
               </div>
-              <div class="shrink-0 text-right bg-[#FAF5EE] px-2.5 py-1 rounded-xl border border-[#E6D8C8]">
-                <div class="text-[9px] text-[#75625A]">預估人均</div>
-                <div class="text-[11px] font-black text-[#B83A2D]">${f.cost}</div>
+              <div class="shrink-0 text-right bg-[#FAF6F0] px-2.5 py-1 rounded-xl border border-[#E6D8C6]">
+                <div class="text-[9px] text-[#786355]">預估人均</div>
+                <div class="text-[11px] font-black text-[#B83B2A]">${f.cost}</div>
               </div>
             </div>
 
-            <div class="p-2.5 rounded-xl bg-[#FAF5EE] border border-[#EFE4D6] text-xs space-y-1">
-              <div><span class="font-bold text-[#B83A2D]">🍽️ 必點招牌：</span><span class="text-[#4A2C2A] font-medium">${f.mustOrder}</span></div>
-              <div><span class="font-bold text-[#3E6B4C]">✨ 推薦理由：</span><span class="text-[#59463E]">${f.reason}</span></div>
+            <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#EFE4D6] text-xs space-y-1">
+              <div><span class="font-bold text-[#B83B2A]">🍽️ 必點招牌：</span><span class="text-[#4A3525] font-medium">${f.mustOrder}</span></div>
+              <div><span class="font-bold text-[#3D6B4C]">✨ 推薦理由：</span><span class="text-[#59463E]">${f.reason}</span></div>
             </div>
 
             <div class="flex gap-2">
               ${f.bookingUrl ? `
                 <a href="${f.bookingUrl}" target="_blank" rel="noopener noreferrer"
-                  class="flex-1 py-2 px-2.5 rounded-xl bg-gradient-to-r from-[#B83A2D] to-[#D96B27] text-white text-[11px] font-bold text-center shadow-sm active:scale-95">
+                  class="flex-1 py-2 px-2.5 rounded-xl bg-gradient-to-r from-[#B83B2A] to-[#D96B27] text-white text-[11px] font-bold text-center shadow-sm active:scale-95">
                   📅 網上預約 / 查看食評
                 </a>
               ` : ""}
               <a href="${gmapUrl}" target="_blank" rel="noopener noreferrer"
-                class="flex-1 py-2 px-2.5 rounded-xl bg-[#3E6B4C] text-white text-[11px] font-bold text-center shadow-sm active:scale-95">
+                class="flex-1 py-2 px-2.5 rounded-xl bg-[#3D6B4C] text-white text-[11px] font-bold text-center shadow-sm active:scale-95">
                 📍 Google Maps 導航
               </a>
             </div>
@@ -1995,10 +2259,9 @@
       }).join("");
     }
 
-    // 渲染 Tab 2：點對點精細交通地圖卡片
     function renderTransitTab() {
       const d = state.days[state.selectedDayIdx];
-      document.getElementById("transitSectionTitle").textContent = `${d.date} 點對點精細交通轉乘指南`;
+      document.getElementById("transitSectionTitle").textContent = `${d.date} 點對點交通轉乘與出口指南`;
       const container = document.getElementById("transitCardsContainer");
 
       container.innerHTML = d.nodes.map((node, idx) => {
@@ -2010,17 +2273,17 @@
         return `
           <div class="journal-card p-3.5 space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[11px] font-black px-2 py-0.5 rounded-md bg-[#E8F3EC] text-[#3E6B4C]">段次 ${idx + 1} · ${node.time}</span>
-              <span class="text-[11px] font-bold text-[#75625A]">${node.duration}</span>
+              <span class="text-[11px] font-black px-2 py-0.5 rounded-md bg-[#E8F3EC] text-[#3D6B4C]">段次 ${idx + 1} · ${node.time}</span>
+              <span class="text-[11px] font-bold text-[#786355]">${node.duration}</span>
             </div>
-            <div class="text-xs font-black text-[#4A2C2A]">
+            <div class="text-xs font-black text-[#4A3525]">
               ${prev ? `${prev.title.replace(/^[^\u4e00-\u9fa5A-Za-z0-9]+/, "")} ➡️ ` : "出發 / 抵達："}${node.title}
             </div>
             <p class="text-xs text-[#284B35] bg-[#F2F7F4] p-2.5 rounded-xl border border-[#CFE2D6] leading-relaxed">
               ${node.transit || node.highlight}
             </p>
             <a href="${navUrl}" target="_blank" rel="noopener noreferrer"
-              class="w-full py-2 rounded-xl bg-[#3E6B4C] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+              class="w-full py-2 rounded-xl bg-[#3D6B4C] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
               <span>🗺️</span><span>開啟 Google Maps 大眾運輸精準導航</span>
             </a>
           </div>
@@ -2028,66 +2291,78 @@
       }).join("");
     }
 
-    // 渲染彈窗內的總預約清單與日文常用語
-    function renderModalsData() {
+    // 渲染日文溝通大字卡
+    function filterPhraseCategory(cat) {
+      state.phraseFilter = cat;
+      document.querySelectorAll(".phrase-cat-btn").forEach(btn => {
+        const isMatch = btn.getAttribute("onclick").includes(`'${cat}'`);
+        if (isMatch) {
+          btn.className = "phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-[#B83B2A] text-white text-xs font-bold";
+        } else {
+          btn.className = "phrase-cat-btn shrink-0 px-3 py-1.5 rounded-xl bg-white border border-[#E6D8C6] text-[#4A3525] text-xs font-bold";
+        }
+      });
+      renderPhraseCards();
+    }
+
+    function renderPhraseCards() {
+      const container = document.getElementById("jpPhraseCardsContainer");
+      const list = state.phraseFilter === "all"
+        ? JP_COMMUNICATION_CARDS
+        : JP_COMMUNICATION_CARDS.filter(c => c.cat === state.phraseFilter);
+
+      container.innerHTML = list.map((card, idx) => `
+        <div onclick="openFullscreenPhrase(${idx})" class="journal-card p-3.5 space-y-2 cursor-pointer active:scale-[0.99] transition border-l-4 border-l-[#B83B2A]">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#FDECEA] text-[#B83B2A]">${card.badge}</span>
+            <span class="text-[10px] font-bold text-[#3D6B4C] bg-[#E8F3EC] px-2 py-0.5 rounded-md">🔍 點擊放大出示</span>
+          </div>
+          <div class="font-bold text-xs text-[#4A3525]">${card.title}</div>
+          <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E6D8C6] font-black text-sm text-[#4A3525] whitespace-pre-line leading-relaxed">
+            ${card.jp}
+          </div>
+          <div class="text-[11px] text-[#786355]">${card.zh}</div>
+        </div>
+      `).join("");
+    }
+
+    function openFullscreenPhrase(filteredIdx) {
+      const list = state.phraseFilter === "all"
+        ? JP_COMMUNICATION_CARDS
+        : JP_COMMUNICATION_CARDS.filter(c => c.cat === state.phraseFilter);
+      const card = list[filteredIdx];
+      if (!card) return;
+      currentFullscreenJpText = card.jp;
+      document.getElementById("fsPhraseBadge").textContent = card.badge;
+      document.getElementById("fsPhraseJp").textContent = card.jp;
+      document.getElementById("fsPhraseZh").textContent = card.zh;
+      openModal("fullscreenPhraseModal");
+    }
+
+    function copyCurrentFsPhrase() {
+      copyToClipboard(currentFullscreenJpText);
+    }
+
+    function renderMasterBookings() {
       document.getElementById("masterBookingList").innerHTML = MASTER_BOOKING_ITEMS.map(item => `
-        <div class="p-3 rounded-2xl bg-[#FAF5EE] border border-[#E6D8C8] space-y-1.5">
+        <div class="journal-card p-3.5 space-y-1.5 text-xs">
           <div class="flex items-center justify-between gap-1 flex-wrap">
-            <span class="font-black text-[#4A2C2A]">${item.day}</span>
+            <span class="font-black text-[#4A3525]">${item.day}</span>
             ${getStatusBadge(item.status, item.badge)}
           </div>
-          <div class="font-bold text-sm text-[#4A2C2A]">${item.title}</div>
+          <div class="font-bold text-sm text-[#4A3525]">${item.title}</div>
           <p class="text-[11px] text-[#59463E] leading-relaxed">${item.note}</p>
           <a href="${item.url}" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#B83A2D] text-white text-[11px] font-bold shadow-sm">
+            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#B83B2A] text-white text-[11px] font-bold shadow-sm">
             <span>🔗</span><span>前往 ${item.platform}</span>
           </a>
         </div>
       `).join("");
-
-      document.getElementById("jpPhrasesContainer").innerHTML = JP_RESERVATION_PHRASES.map(p => `
-        <div class="p-3 rounded-2xl bg-[#FAF5EE] border border-[#E6D8C8] space-y-1.5">
-          <div class="flex items-center justify-between gap-2">
-            <span class="font-bold text-xs text-[#B83A2D]">${p.title}</span>
-            <button onclick="copyToClipboard('${p.jp.replace(/'/g, "\\'")}')"
-              class="px-2.5 py-1 rounded-lg bg-[#4A2C2A] text-white text-[11px] font-bold active:scale-95">
-              📋 複製日文
-            </button>
-          </div>
-          <div class="p-2 rounded-xl bg-white border border-[#DFCBB5] font-bold text-xs text-[#4A2C2A] select-all">
-            ${p.jp}
-          </div>
-          <div class="text-[11px] text-[#75625A]">中文：${p.zh}</div>
-        </div>
-      `).join("");
     }
 
     // =========================================================================
-    // 4. 頁面切換與行程編輯互動
+    // 6. 行程編輯互動
     // =========================================================================
-    function selectDay(idx) {
-      state.selectedDayIdx = idx;
-      persistState();
-      renderAll();
-    }
-
-    function switchMainTab(tab) {
-      state.activeTab = tab;
-      ["itinerary", "transit", "accounting", "currency"].forEach(t => {
-        const panel = document.getElementById(`tab-${t}`);
-        const btn = document.getElementById(`nav-${t}`);
-        if (t === tab) {
-          panel.classList.remove("hidden");
-          btn.classList.add("bg-white", "text-[#B83A2D]", "shadow-sm");
-          btn.classList.remove("text-[#75625A]");
-        } else {
-          panel.classList.add("hidden");
-          btn.classList.remove("bg-white", "text-[#B83A2D]", "shadow-sm");
-          btn.classList.add("text-[#75625A]");
-        }
-      });
-    }
-
     function openItineraryEditor(nodeId = null) {
       const d = state.days[state.selectedDayIdx];
       document.getElementById("editNodeId").value = nodeId || "";
@@ -2165,8 +2440,21 @@
     }
 
     // =========================================================================
-    // 5. 雙向匯率換算與記帳分攤引擎
+    // 7. ¥546,450 現金錢包、雙向匯率換算與記帳分攤引擎
     // =========================================================================
+    function saveInitialJpyCash() {
+      const val = parseFloat(document.getElementById("editInitialJpyInput").value);
+      if (isNaN(val) || val < 0) {
+        showToast("⚠️ 請輸入有效的日圓金額");
+        return;
+      }
+      state.initialJpyCash = Math.round(val);
+      persistState();
+      renderAccountingSection();
+      closeModal("cashWalletModal");
+      showToast(`✅ 初始日圓現金已更新為 ¥${state.initialJpyCash.toLocaleString()}`);
+    }
+
     function handleRateUpdate(val) {
       const r = parseFloat(val);
       if (r > 0) {
@@ -2197,13 +2485,31 @@
       onCurrencyInput("JPY");
     }
 
+    function onPaymentMethodChange() {
+      const method = document.getElementById("accMethod").value;
+      if (method === "日圓現金") {
+        document.getElementById("accCurrency").value = "JPY";
+        document.getElementById("accPayer").value = "共同現金池";
+      } else if (method === "港幣現金 / 電子支付") {
+        document.getElementById("accCurrency").value = "HKD";
+        if (document.getElementById("accPayer").value === "共同現金池") {
+          document.getElementById("accPayer").value = "我";
+        }
+      } else {
+        if (document.getElementById("accPayer").value === "共同現金池") {
+          document.getElementById("accPayer").value = "我";
+        }
+      }
+      updateAccRatePreview();
+    }
+
     function syncAccountingDefaults() {
       const d = state.days[state.selectedDayIdx];
       document.getElementById("accountingDayTag").textContent = `計入 ${d.date} 帳目`;
-      const momCb = document.getElementById("accMomCheckbox");
-      if (momCb) {
-        // 11/20-11/23 預設 3 人，11/24-11/26 預設 2 人 (不含媽媽)
-        momCb.checked = d.pax === 3;
+      const meCb = document.getElementById("accMeCheckbox");
+      if (meCb) {
+        // 11/20-11/23 預設 3 人，11/24-11/26 預設父母 2 人
+        meCb.checked = d.pax === 3;
       }
       recalcEqualPreview();
     }
@@ -2269,6 +2575,7 @@
 
       const r = state.ratePer100Jpy;
       const amountHkd = currency === "HKD" ? amount : (amount / 100) * r;
+      const amountJpy = currency === "JPY" ? amount : Math.round((amount / r) * 100);
       const sharesHkd = {};
 
       if (splitMode === "equal") {
@@ -2307,6 +2614,7 @@
         currency,
         originalAmount: amount,
         amountHkd,
+        amountJpy,
         payer,
         splitMode,
         sharesHkd
@@ -2322,7 +2630,7 @@
       persistState();
       renderDayHeaderCard();
       renderAccountingSection();
-      showToast("✅ 已新增消費並同步更新餐費進度！");
+      showToast("✅ 已新增消費並同步更新現金餘額與餐補！");
     }
 
     function deleteExpenseRecord(id) {
@@ -2350,13 +2658,15 @@
 
       state.expenses.forEach(exp => {
         totalHkd += exp.amountHkd;
-        paidMap[exp.payer] = (paidMap[exp.payer] || 0) + exp.amountHkd;
-        Object.entries(exp.sharesHkd).forEach(([person, val]) => {
-          owedMap[person] = (owedMap[person] || 0) + val;
-        });
+        if (exp.payer !== "共同現金池") {
+          paidMap[exp.payer] = (paidMap[exp.payer] || 0) + exp.amountHkd;
+          Object.entries(exp.sharesHkd).forEach(([person, val]) => {
+            owedMap[person] = (owedMap[person] || 0) + val;
+          });
+        }
       });
 
-      const allPeople = Array.from(new Set([...Object.keys(paidMap), ...Object.keys(owedMap), "我", "爸爸", "媽媽"]));
+      const allPeople = ["我", "爸爸", "媽媽"];
       const debtors = [];
       const creditors = [];
 
@@ -2381,30 +2691,46 @@
     }
 
     function renderAccountingSection() {
-      const dispCurr = document.getElementById("billDisplayCurrency").value;
       const r = state.ratePer100Jpy;
-      const fmt = (hkd) => dispCurr === "HKD" ? `HK$${hkd.toFixed(1)}` : `¥${Math.round((hkd / r) * 100).toLocaleString()}`;
 
+      // 更新 ¥546,450 日圓現金錢包餘額看板
+      const spentJpyCash = state.expenses
+        .filter(e => e.method === "日圓現金")
+        .reduce((sum, e) => sum + (e.currency === "JPY" ? e.originalAmount : e.amountJpy), 0);
+      const remainJpy = state.initialJpyCash - spentJpyCash;
+      const remainHkdEquiv = ((remainJpy / 100) * r).toFixed(0);
+
+      document.getElementById("initialJpyDisplay").textContent = `¥${state.initialJpyCash.toLocaleString()}`;
+      document.getElementById("spentJpyCashDisplay").textContent = `已用現金：¥${Math.round(spentJpyCash).toLocaleString()}`;
+      const remEl = document.getElementById("remainingJpyDisplay");
+      remEl.textContent = `¥${Math.round(remainJpy).toLocaleString()}`;
+      remEl.className = `text-base font-black mt-0.5 ${remainJpy < 0 ? "text-red-600" : "text-[#2D613E]"}`;
+      document.getElementById("remainingHkdEquivDisplay").textContent = `約值 HK$${Number(remainHkdEquiv).toLocaleString()}`;
+      document.getElementById("editInitialJpyInput").value = state.initialJpyCash;
+
+      // 帳單明細
+      const dispCurr = document.getElementById("billDisplayCurrency").value;
+      const fmt = (hkd) => dispCurr === "HKD" ? `HK$${hkd.toFixed(1)}` : `¥${Math.round((hkd / r) * 100).toLocaleString()}`;
       const { totalHkd, paidMap, owedMap, allPeople, transfers } = computeBillSummary();
 
       document.getElementById("finalBillSummary").innerHTML = `
-        <div class="flex justify-between font-black text-sm text-[#4A2C2A] pb-1.5 border-b border-[#E6D8C8]">
+        <div class="flex justify-between font-black text-sm text-[#4A3525] pb-1.5 border-b border-[#E6D8C6]">
           <span>全旅程累計總支出：</span>
-          <span class="text-[#B83A2D]">${fmt(totalHkd)}</span>
+          <span class="text-[#B83B2A]">${fmt(totalHkd)}</span>
         </div>
         <div class="grid grid-cols-3 gap-1.5 py-1 text-center">
-          ${allPeople.slice(0, 3).map(p => `
-            <div class="bg-white p-2 rounded-xl border border-[#E6D8C8]">
-              <div class="font-bold text-[#4A2C2A]">${p}</div>
-              <div class="text-[10px] text-[#75625A]">墊付 ${fmt(paidMap[p] || 0)}</div>
-              <div class="text-[10px] text-[#3E6B4C]">應付 ${fmt(owedMap[p] || 0)}</div>
+          ${allPeople.map(p => `
+            <div class="bg-white p-2 rounded-xl border border-[#E6D8C6]">
+              <div class="font-bold text-[#4A3525]">${p}</div>
+              <div class="text-[10px] text-[#786355]">個人墊付 ${fmt(paidMap[p] || 0)}</div>
+              <div class="text-[10px] text-[#3D6B4C]">個人應付 ${fmt(owedMap[p] || 0)}</div>
             </div>
           `).join("")}
         </div>
         <div class="space-y-1">
-          <div class="font-bold text-[#4A2C2A]">💸 最終結算轉帳建議：</div>
+          <div class="font-bold text-[#4A3525]">💸 個人墊付結算轉帳建議（共同現金池支付不需互相轉帳）：</div>
           ${transfers.length === 0
-            ? `<div class="text-[#3E6B4C] font-bold">✨ 目前帳目已結清，無需轉帳！</div>`
+            ? `<div class="text-[#3D6B4C] font-bold">✨ 目前個人墊付帳目已結清，無需轉帳！</div>`
             : transfers.map(t => `
                 <div class="px-2.5 py-1.5 rounded-lg bg-[#FFF6E6] border border-[#F0D6A8] font-bold text-[#8A4B16] flex justify-between">
                   <span>👉 ${t.from} 轉帳給 ${t.to}</span>
@@ -2415,7 +2741,6 @@
         </div>
       `;
 
-      // 渲染結清歷史時間紀錄
       const logBox = document.getElementById("settlementLogContainer");
       logBox.innerHTML = state.settlementLogs.map(log => `
         <div class="text-[11px] bg-[#E8F3EC] text-[#2D613E] px-3 py-1.5 rounded-xl border border-[#BCE0C8] flex justify-between">
@@ -2424,28 +2749,27 @@
         </div>
       `).join("");
 
-      // 渲染消費明細列表
       document.getElementById("totalExpenseCount").textContent = state.expenses.length;
       const listEl = document.getElementById("expenseItemsList");
       if (state.expenses.length === 0) {
-        listEl.innerHTML = `<div class="text-center py-4 text-xs text-[#75625A]">尚無記帳紀錄，上方輸入後即可自動統計餐費與分帳！</div>`;
+        listEl.innerHTML = `<div class="text-center py-4 text-xs text-[#786355]">尚無記帳紀錄，上方輸入後即可自動扣減現金餘額與統計餐費！</div>`;
         return;
       }
 
       const icons = { food: "🍜", transport: "🚃", ticket: "🎫", shopping: "🛍️" };
       listEl.innerHTML = state.expenses.map(e => `
-        <div class="p-2.5 rounded-xl bg-[#FAF5EE] border border-[#E6D8C8] flex items-center justify-between gap-2 text-xs">
+        <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E6D8C6] flex items-center justify-between gap-2 text-xs">
           <div>
             <div class="flex items-center gap-1.5">
               <span class="px-1.5 py-0.5 rounded bg-white border border-[#DFCBB5] text-[10px] font-bold">${e.dayDate}</span>
-              <span class="font-bold text-[#4A2C2A]">${icons[e.category] || "📝"} ${e.title}</span>
+              <span class="font-bold text-[#4A3525]">${icons[e.category] || "📝"} ${e.title}</span>
             </div>
-            <div class="text-[10px] text-[#75625A] mt-0.5">
-              ${e.payer}付款 (${e.method}) · 原幣 ${e.currency === "JPY" ? `¥${e.originalAmount.toLocaleString()}` : `HK$${e.originalAmount}`}
+            <div class="text-[10px] text-[#786355] mt-0.5">
+              ${e.payer} (${e.method}) · 原幣 ${e.currency === "JPY" ? `¥${e.originalAmount.toLocaleString()}` : `HK$${e.originalAmount}`}
             </div>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <span class="font-black text-[#B83A2D]">${fmt(e.amountHkd)}</span>
+            <span class="font-black text-[#B83B2A]">${fmt(e.amountHkd)}</span>
             <button onclick="deleteExpenseRecord('${e.id}')" class="text-gray-400 hover:text-red-600 p-1">✕</button>
           </div>
         </div>
@@ -2458,7 +2782,7 @@
       const { totalHkd } = computeBillSummary();
       state.settlementLogs.unshift({
         timestamp: ts,
-        summary: `總額 HK$${totalHkd.toFixed(1)}`
+        summary: `累計 HK$${totalHkd.toFixed(1)}`
       });
       persistState();
       renderAccountingSection();
@@ -2470,25 +2794,27 @@
       const r = state.ratePer100Jpy;
       const fmt = (hkd) => dispCurr === "HKD" ? `HK$${hkd.toFixed(1)}` : `¥${Math.round((hkd / r) * 100).toLocaleString()}`;
       const { totalHkd, paidMap, owedMap, allPeople, transfers } = computeBillSummary();
+      const remainJpyText = document.getElementById("remainingJpyDisplay").textContent;
 
       const lines = [
         "🍁【2026 關西紅葉親子之旅・最終帳單明細】",
         `結算幣種：${dispCurr} (匯率 100 JPY = ${r} HKD)`,
+        `初始日圓現金：¥${state.initialJpyCash.toLocaleString()} ｜ 剩餘日圓現金：${remainJpyText}`,
         `累計總支出：${fmt(totalHkd)}`,
         "------------------------"
       ];
-      allPeople.slice(0, 3).forEach(p => {
-        lines.push(`• ${p}：墊付 ${fmt(paidMap[p] || 0)} ｜ 應付 ${fmt(owedMap[p] || 0)}`);
+      allPeople.forEach(p => {
+        lines.push(`• ${p}：個人墊付 ${fmt(paidMap[p] || 0)} ｜ 個人應付 ${fmt(owedMap[p] || 0)}`);
       });
       lines.push("------------------------");
       if (transfers.length === 0) {
-        lines.push("✨ 帳目已結清！");
+        lines.push("✨ 個人墊付帳目已結清！");
       } else {
         transfers.forEach(t => lines.push(`👉 ${t.from} 轉帳給 ${t.to}：${fmt(t.amountHkd)}`));
       }
       if (state.expenses.length > 0) {
         lines.push("------------------------");
-        state.expenses.forEach(e => lines.push(`[${e.dayDate}] ${e.title}：${fmt(e.amountHkd)} (${e.payer}付)`));
+        state.expenses.forEach(e => lines.push(`[${e.dayDate}] ${e.title}：${fmt(e.amountHkd)} (${e.method})`));
       }
       copyToClipboard(lines.join("\n"));
     }
@@ -2500,46 +2826,51 @@
       const r = state.ratePer100Jpy;
       const fmt = (hkd) => dispCurr === "HKD" ? `HK$${hkd.toFixed(1)}` : `¥${Math.round((hkd / r) * 100).toLocaleString()}`;
       const { totalHkd, paidMap, owedMap, allPeople, transfers } = computeBillSummary();
+      const remainJpyText = document.getElementById("remainingJpyDisplay").textContent;
 
       const items = state.expenses.slice(0, 14);
-      canvas.width = 740;
-      canvas.height = 500 + items.length * 34;
+      canvas.width = 760;
+      canvas.height = 540 + items.length * 34;
 
-      ctx.fillStyle = "#FAF5EE";
+      ctx.fillStyle = "#FAF6F0";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.strokeStyle = "#B83A2D";
+      ctx.strokeStyle = "#B83B2A";
       ctx.lineWidth = 6;
       ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-      ctx.fillStyle = "#B83A2D";
+      ctx.fillStyle = "#B83B2A";
       ctx.font = "bold 28px sans-serif";
       ctx.fillText("🍁 2026 關西紅葉親子之旅｜旅費對帳單", 48, 72);
 
-      ctx.fillStyle = "#75625A";
+      ctx.fillStyle = "#786355";
       ctx.font = "18px sans-serif";
       ctx.fillText(`匯出時間：${new Date().toLocaleString()} ｜ 匯率 100 JPY = ${r} HKD`, 48, 106);
 
-      ctx.fillStyle = "#4A2C2A";
-      ctx.font = "bold 24px sans-serif";
-      ctx.fillText(`累計總支出：${fmt(totalHkd)}`, 48, 154);
+      ctx.fillStyle = "#2D613E";
+      ctx.font = "bold 21px sans-serif";
+      ctx.fillText(`💴 初始日圓現金：¥${state.initialJpyCash.toLocaleString()}  ｜  剩餘現金：${remainJpyText}`, 48, 146);
 
-      let y = 200;
+      ctx.fillStyle = "#4A3525";
+      ctx.font = "bold 24px sans-serif";
+      ctx.fillText(`累計總支出：${fmt(totalHkd)}`, 48, 188);
+
+      let y = 232;
       ctx.font = "20px sans-serif";
-      allPeople.slice(0, 3).forEach(p => {
-        ctx.fillText(`• ${p}：墊付 ${fmt(paidMap[p] || 0)}  ｜  應付 ${fmt(owedMap[p] || 0)}`, 60, y);
+      allPeople.forEach(p => {
+        ctx.fillText(`• ${p}：個人墊付 ${fmt(paidMap[p] || 0)}  ｜  個人應付 ${fmt(owedMap[p] || 0)}`, 60, y);
         y += 34;
       });
 
       y += 16;
-      ctx.fillStyle = "#B83A2D";
+      ctx.fillStyle = "#B83B2A";
       ctx.font = "bold 22px sans-serif";
-      ctx.fillText("💸 最終結算轉帳建議：", 48, y);
+      ctx.fillText("💸 個人墊付結算轉帳建議：", 48, y);
       y += 34;
-      ctx.fillStyle = "#4A2C2A";
+      ctx.fillStyle = "#4A3525";
       ctx.font = "bold 20px sans-serif";
       if (transfers.length === 0) {
-        ctx.fillText("✨ 目前帳目已結清！", 60, y);
+        ctx.fillText("✨ 目前個人墊付帳目已結清！", 60, y);
         y += 34;
       } else {
         transfers.forEach(t => {
@@ -2549,14 +2880,14 @@
       }
 
       y += 18;
-      ctx.fillStyle = "#3E6B4C";
+      ctx.fillStyle = "#3D6B4C";
       ctx.font = "bold 20px sans-serif";
       ctx.fillText(`🧾 最近消費明細 (${items.length} 筆)：`, 48, y);
       y += 32;
       ctx.fillStyle = "#59463E";
       ctx.font = "18px sans-serif";
       items.forEach(e => {
-        ctx.fillText(`[${e.dayDate}] ${e.title} (${e.payer}付) — ${fmt(e.amountHkd)}`, 60, y);
+        ctx.fillText(`[${e.dayDate}] ${e.title} (${e.method}) — ${fmt(e.amountHkd)}`, 60, y);
         y += 32;
       });
 
@@ -2568,7 +2899,7 @@
     }
 
     // =========================================================================
-    // 6. 通用工具函式
+    // 8. 通用工具函式與初始化
     // =========================================================================
     function openModal(id) { document.getElementById(id).classList.remove("hidden"); }
     function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
@@ -2599,6 +2930,7 @@
     window.onload = function () {
       loadStateFromStorage();
       renderAll();
+      fetchLiveWeather(false);
     };
   </script>
 </body>
